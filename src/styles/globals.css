@@ -1,0 +1,341 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS custom properties ────────────────────────────────────────────────── */
+:root {
+  --green:        #2B8A2E;
+  --green-dark:   #1A5C1A;
+  --green-mid:    #237226;
+  --gold:         #F2C12E;
+  --gold-light:   #f5cf55;
+  --cream:        #faf9f5;
+  --cream-dark:   #f0ece0;
+  --cream-darker: #e4ddd1;
+  --text:         #1a2e1a;
+  --text-muted:   #4d6b4d;
+}
+
+@layer base {
+  html { @apply antialiased scroll-smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    background-color: #faf9f5;
+    color: #1a2e1a;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #faf9f5, 0 0 0 4px #2B8A2E;
+  }
+
+  ::-webkit-scrollbar       { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #f0ece0; }
+  ::-webkit-scrollbar-thumb { background: #237226; border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #1A5C1A; }
+
+  ::selection { background: #2B8A2E; color: white; }
+}
+
+@layer components {
+
+  /* ── Buttons ─────────────────────────────────────────────────────────────
+   * All font-weights written as plain CSS — @apply font-600 is unreliable
+   * when the class is defined in @layer utilities (different cascade bucket)
+   * ─────────────────────────────────────────────────────────────────────── */
+
+  .btn {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 600;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl
+           transition-all duration-200 select-none
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-sm  { @apply btn px-4 py-2 text-sm; }
+  .btn-md  { @apply btn px-5 py-2.5 text-sm; }
+  .btn-lg  { @apply btn px-7 py-3.5 text-base; }
+
+  .btn-primary {
+    background-color: #2B8A2E;
+    color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .btn-primary:hover {
+    background-color: #237226;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(43,138,46,0.28);
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-gold {
+    background-color: #F2C12E;
+    color: #1A5C1A;
+    font-weight: 700;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .btn-gold:hover {
+    background-color: #f5cf55;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(242,193,46,0.38);
+  }
+  .btn-gold:active { transform: translateY(0); }
+
+  .btn-outline {
+    border: 2px solid #2B8A2E;
+    color: #2B8A2E;
+    background: transparent;
+  }
+  .btn-outline:hover { background-color: #f2faf2; }
+
+  .btn-ghost {
+    color: #2B8A2E;
+    background: transparent;
+  }
+  .btn-ghost:hover { background-color: #f2faf2; }
+
+  .btn-outline-white {
+    border: 2px solid rgba(255,255,255,0.45);
+    color: white;
+    background: transparent;
+  }
+  .btn-outline-white:hover {
+    background-color: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.75);
+  }
+
+  .btn-destructive {
+    background-color: #dc2626;
+    color: white;
+  }
+  .btn-destructive:hover {
+    background-color: #b91c1c;
+    transform: translateY(-1px);
+  }
+
+  /* ── Cards ───────────────────────────────────────────────────────────────
+   * Border uses explicit hex — border-cream-darker was not generating
+   * ─────────────────────────────────────────────────────────────────────── */
+
+  .card {
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid #e4ddd1;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.04);
+    transition: all 0.2s;
+  }
+
+  .card-hover {
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid #e4ddd1;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.04);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: #b8e4b9;
+    box-shadow: 0 8px 30px rgba(43,138,46,0.13), 0 2px 8px rgba(43,138,46,0.07);
+  }
+
+  .card-glass {
+    background-color: rgba(255,255,255,0.82);
+    backdrop-filter: blur(8px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255,255,255,0.65);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+
+  /* ── Badges ──────────────────────────────────────────────────────────────*/
+
+  .badge {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 700;
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full
+           text-xs uppercase tracking-wide;
+  }
+  .badge-green  { @apply badge bg-green-100 text-green-700; }
+  .badge-gold   { @apply badge; background-color: #fef3c7; color: #92400e; }
+  .badge-red    { @apply badge bg-red-100 text-red-700; }
+  .badge-orange { @apply badge bg-orange-100 text-orange-700; }
+  .badge-blue   { @apply badge bg-blue-100 text-blue-700; }
+  .badge-purple { @apply badge bg-purple-100 text-purple-700; }
+  .badge-gray   { @apply badge bg-gray-100 text-gray-600; }
+
+  /* ── Forms ───────────────────────────────────────────────────────────────
+   * Written as plain CSS — @apply with custom colors unreliable in v3 JIT
+   * ─────────────────────────────────────────────────────────────────────── */
+
+  .form-input {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1.5px solid #d1c9bc;
+    background-color: #faf9f5;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1a2e1a;
+    transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    outline: none;
+  }
+  .form-input::placeholder {
+    color: rgba(77,107,77,0.48);
+  }
+  .form-input:focus {
+    border-color: #2B8A2E;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(43,138,46,0.13);
+  }
+
+  .form-input-error { border-color: #f87171 !important; }
+  .form-input-error:focus {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239,68,68,0.13) !important;
+  }
+
+  .form-label {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a2e1a;
+    margin-bottom: 6px;
+  }
+
+  .form-error {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #dc2626;
+    font-weight: 500;
+  }
+
+  .form-select {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: block;
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    border-radius: 12px;
+    border: 1.5px solid #d1c9bc;
+    background-color: #faf9f5;
+    font-size: 14px;
+    color: #1a2e1a;
+    transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%234d6b4d' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-size: 16px;
+    background-repeat: no-repeat;
+  }
+  .form-select:focus {
+    border-color: #2B8A2E;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(43,138,46,0.13);
+  }
+
+  /* ── Section helpers ─────────────────────────────────────────────────────*/
+
+  .section-container { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .section-padding   { @apply py-16 lg:py-24; }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight;
+    color: #2B8A2E;
+  }
+
+  .section-sub {
+    @apply text-lg leading-relaxed mt-3;
+    color: #4d6b4d;
+  }
+
+  .divider {
+    width: 48px;
+    height: 3px;
+    background-color: #F2C12E;
+    border-radius: 9999px;
+    margin-top: 14px;
+    margin-bottom: 32px;
+  }
+
+  /* Alternating section background — explicit hex, no opacity modifier */
+  .section-alt { background-color: #f5f0e8; }
+
+  /* ── Page header ─────────────────────────────────────────────────────────*/
+  .page-header {
+    background-color: #2B8A2E;
+    @apply relative overflow-hidden;
+    background-image:
+      radial-gradient(ellipse at 65% 45%, rgba(242,193,46,0.13) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* ── Marquee ─────────────────────────────────────────────────────────────*/
+  .marquee-wrapper {
+    overflow: hidden;
+    width: 100%;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 4rem;
+    white-space: nowrap;
+    animation: marquee 30s linear infinite;
+    width: max-content;
+  }
+
+  /* ── Skeleton ────────────────────────────────────────────────────────────*/
+  .skeleton {
+    @apply rounded-lg;
+    background: linear-gradient(90deg, #f0ece0 25%, #e4ddd1 50%, #f0ece0 75%);
+    background-size: 200% 100%;
+    animation: pulse 2s cubic-bezier(0.4,0,0.6,1) infinite;
+  }
+}
+
+@layer utilities {
+  /* Used directly in JSX classNames — NOT in @apply inside @layer components */
+  .font-500 { font-weight: 500; }
+  .font-600 { font-weight: 600; }
+  .font-700 { font-weight: 700; }
+  .font-800 { font-weight: 800; }
+  .text-balance { text-wrap: balance; }
+  .scrollbar-hide { scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .shadow-card    { box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04); }
+  .shadow-card-md { box-shadow: 0 4px 16px rgba(43,138,46,0.12), 0 2px 6px rgba(43,138,46,0.07); }
+  .shadow-card-lg { box-shadow: 0 12px 40px rgba(43,138,46,0.16), 0 4px 16px rgba(43,138,46,0.09); }
+  .shadow-glow    { box-shadow: 0 0 0 3px rgba(43,138,46,0.18); }
+  .shadow-glow-gold { box-shadow: 0 0 0 3px rgba(242,193,46,0.28); }
+  .font-display { font-family: 'Cormorant Garamond', Georgia, serif; }
+  .font-body    { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+}
+
+/* ── Keyframes (used by .marquee-track and .skeleton raw CSS animations) ── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
