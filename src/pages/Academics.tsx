@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { Search, Download, Eye, Star, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react'
+import { Search, Download, Eye, Star, ChevronLeft, ChevronRight } from 'lucide-react'
 import { academicsApi } from '@/api/services'
 import { EmptyState, Badge, Skeleton } from '@/components/ui'
 import { PageHeader } from '@/components/shared'
