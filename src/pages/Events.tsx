@@ -62,9 +62,9 @@ function RegistrationModal({
         <div className="flex items-start justify-between mb-6">
           <div>
             <h2 className="font-display text-2xl font-bold text-green-700">Register for Event</h2>
-            <p className="text-sm text-[#5a7060] mt-1">{eventTitle}</p>
+            <p className="text-sm text-[#3D6647] mt-1">{eventTitle}</p>
           </div>
-          <button onClick={onClose} className="p-2 rounded-xl hover:bg-[#f0ece0] text-[#5a7060] transition-colors">
+          <button onClick={onClose} className="p-2 rounded-xl hover:bg-cream-dark text-[#3D6647] transition-colors">
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -73,7 +73,7 @@ function RegistrationModal({
           <div className="text-center py-6">
             <CheckCircle className="h-14 w-14 text-green-700 mx-auto mb-4" />
             <h3 className="font-display text-xl font-bold text-green-700 mb-2">You're registered!</h3>
-            <p className="text-sm text-[#5a7060] mb-6">See you at the event. A confirmation has been sent if you provided an email.</p>
+            <p className="text-sm text-[#3D6647] mb-6">See you at the event. A confirmation has been sent if you provided an email.</p>
             <Button variant="primary" size="md" onClick={onClose} className="w-full">Close</Button>
           </div>
         ) : (
@@ -104,7 +104,7 @@ function RegistrationModal({
                 </div>
               </div>
               <div>
-                <label className="form-label">Notes <span className="text-[#5a7060] font-normal">(optional)</span></label>
+                <label className="form-label">Notes <span className="text-[#3D6647] font-normal">(optional)</span></label>
                 <textarea {...register('notes')} className="form-input resize-none h-20" placeholder="Any notes or special requests…" />
               </div>
               <Button type="submit" variant="primary" size="lg" loading={mutation.isPending} className="w-full">
@@ -162,11 +162,11 @@ export function EventsPage() {
       <div className="section-container section-padding">
         <div className="flex flex-wrap gap-6 mb-8">
           <div>
-            <p className="text-xs font-700 text-[#5a7060] uppercase tracking-wide mb-2">Status</p>
+            <p className="text-xs font-700 text-[#3D6647] uppercase tracking-wide mb-2">Status</p>
             <FilterBar options={statusOptions} value={statusFilter} onChange={setStatusFilter} />
           </div>
           <div>
-            <p className="text-xs font-700 text-[#5a7060] uppercase tracking-wide mb-2">Type</p>
+            <p className="text-xs font-700 text-[#3D6647] uppercase tracking-wide mb-2">Type</p>
             <FilterBar options={typeOptions} value={typeFilter} onChange={setTypeFilter} />
           </div>
         </div>
@@ -254,12 +254,12 @@ export function EventDetailPage() {
           <div className="lg:col-span-2 space-y-8">
             <div className="card p-8">
               <h2 className="font-display text-2xl font-bold text-green-700 mb-4">About this Event</h2>
-              <p className="text-[#5a7060] leading-relaxed whitespace-pre-wrap">{event.description}</p>
+              <p className="text-[#3D6647] leading-relaxed whitespace-pre-wrap">{event.description}</p>
             </div>
             {event.agenda && (
               <div className="card p-8">
                 <h2 className="font-display text-2xl font-bold text-green-700 mb-4">Agenda</h2>
-                <pre className="text-sm text-[#5a7060] whitespace-pre-wrap font-body">
+                <pre className="text-sm text-[#3D6647] whitespace-pre-wrap font-body">
                   {JSON.stringify(event.agenda, null, 2)}
                 </pre>
               </div>
@@ -273,31 +273,31 @@ export function EventDetailPage() {
                 <Button variant="primary" size="lg" className="w-full" onClick={() => setShowReg(true)}>
                   Register Now →
                 </Button>
-                <p className="text-xs text-[#5a7060] text-center mt-3">Free registration for all GPSA-UDS students</p>
+                <p className="text-xs text-[#3D6647] text-center mt-3">Free registration for all GPSA-UDS students</p>
               </div>
             )}
             <div className="card p-6 space-y-4">
-              <h3 className="font-body font-700 text-[#1c2b22]">Event Details</h3>
+              <h3 className="font-body font-700 text-[#112918]">Event Details</h3>
               <div className="space-y-3 text-sm">
                 <div className="flex items-start gap-3">
                   <Calendar className="h-4 w-4 text-green-700 mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-600 text-[#1c2b22]">Date & Time</p>
-                    <p className="text-[#5a7060]">{formatDateTime(event.start_datetime)}</p>
+                    <p className="font-600 text-[#112918]">Date & Time</p>
+                    <p className="text-[#3D6647]">{formatDateTime(event.start_datetime)}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <MapPin className="h-4 w-4 text-green-700 mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-600 text-[#1c2b22]">Location</p>
-                    <p className="text-[#5a7060]">{event.location}</p>
+                    <p className="font-600 text-[#112918]">Location</p>
+                    <p className="text-[#3D6647]">{event.location}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-green-700 mt-0.5">🏷️</span>
                   <div>
-                    <p className="font-600 text-[#1c2b22]">Type</p>
-                    <p className="text-[#5a7060]">{EVENT_TYPE_LABELS[event.event_type]}</p>
+                    <p className="font-600 text-[#112918]">Type</p>
+                    <p className="text-[#3D6647]">{EVENT_TYPE_LABELS[event.event_type]}</p>
                   </div>
                 </div>
               </div>

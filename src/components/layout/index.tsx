@@ -28,7 +28,7 @@ export function AnnouncementStrip() {
   const doubled = [...items, ...items]
 
   return (
-    <div className="bg-green-700 border-b border-green-600/50 py-2.5 overflow-hidden">
+    <div className="py-2.5 overflow-hidden" style={{background: "linear-gradient(90deg, #1E7034 0%, #3CB559 50%, #2A9144 100%)"}}>
       <div className="flex">
         <div className="marquee-track">
           {doubled.map((item, i) => (
@@ -93,8 +93,8 @@ export function Navbar() {
       className={cn(
         'sticky top-0 z-50 transition-all duration-200',
         scrolled
-          ? 'bg-white/95 backdrop-blur-md border-b border-[#e4ddd1] shadow-card'
-          : 'bg-white border-b border-[#e4ddd1]'
+          ? 'bg-white/95 backdrop-blur-md border-b border-[#D9EBD9] shadow-card'
+          : 'bg-white border-b border-[#D9EBD9]'
       )}
     >
       <div className="section-container">
@@ -107,7 +107,7 @@ export function Navbar() {
             </div>
             <div className="hidden sm:block leading-none">
               <p className="font-display font-700 text-lg text-green-500 leading-tight">GPSA-UDS</p>
-              <p className="text-[10px] text-[#4d6b4d] font-body tracking-wide uppercase">
+              <p className="text-[10px] text-[#3D6647] font-body tracking-wide uppercase">
                 Pharmacy Students' Assoc.
               </p>
             </div>
@@ -125,7 +125,7 @@ export function Navbar() {
                     'px-3.5 py-2 rounded-lg text-sm font-body font-500 transition-all duration-150',
                     isActive
                       ? 'bg-green-50 text-green-700'
-                      : 'text-[#5a7060] hover:bg-[#f0ece0] hover:text-green-700'
+                      : 'text-[#3D6647] hover:bg-[#EDF4EE] hover:text-green-700'
                   )
                 }
               >
@@ -141,7 +141,7 @@ export function Navbar() {
                 {/* Notification bell */}
                 <Link
                   to="/notifications"
-                  className="relative p-2 rounded-lg text-[#5a7060] hover:bg-[#f0ece0] hover:text-green-700 transition-all"
+                  className="relative p-2 rounded-lg text-[#3D6647] hover:bg-[#EDF4EE] hover:text-green-700 transition-all"
                   aria-label="Notifications"
                 >
                   <Bell className="h-5 w-5" />
@@ -156,49 +156,49 @@ export function Navbar() {
                 <div className="relative" onClick={(e) => e.stopPropagation()}>
                   <button
                     onClick={() => setProfileOpen((o) => !o)}
-                    className="flex items-center gap-2 pl-1 pr-3 py-1.5 rounded-xl hover:bg-[#f0ece0] transition-all"
+                    className="flex items-center gap-2 pl-1 pr-3 py-1.5 rounded-xl hover:bg-[#EDF4EE] transition-all"
                   >
-                    <div className="w-8 h-8 rounded-full bg-green-700 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{background:"linear-gradient(135deg,#3CB559,#7DD98A)"}}>
                       <span className="text-xs font-700 text-white">{initials(user.full_name)}</span>
                     </div>
-                    <span className="hidden md:block text-sm font-500 text-[#1c2b22] max-w-[100px] truncate">
+                    <span className="hidden md:block text-sm font-500 text-[#112918] max-w-[100px] truncate">
                       {user.full_name.split(' ')[0]}
                     </span>
-                    <ChevronDown className={cn('h-3.5 w-3.5 text-[#5a7060] transition-transform', profileOpen && 'rotate-180')} />
+                    <ChevronDown className={cn('h-3.5 w-3.5 text-[#3D6647] transition-transform', profileOpen && 'rotate-180')} />
                   </button>
 
                   {profileOpen && (
                     <div className="absolute right-0 top-full mt-2 w-56 card shadow-card-lg py-1 animate-fade-in">
-                      <div className="px-4 py-3 border-b border-[#f0ece0]">
-                        <p className="text-sm font-600 text-[#1c2b22] truncate">{user.full_name}</p>
-                        <p className="text-xs text-[#5a7060] truncate">{user.email}</p>
+                      <div className="px-4 py-3 border-b border-[#EDF4EE]">
+                        <p className="text-sm font-600 text-[#112918] truncate">{user.full_name}</p>
+                        <p className="text-xs text-[#3D6647] truncate">{user.email}</p>
                         <Badge variant="green" className="mt-1.5 capitalize">{user.role}</Badge>
                       </div>
                       <Link
                         to="/profile"
                         onClick={() => setProfileOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#1c2b22] hover:bg-[#f0ece0] transition-colors"
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#112918] hover:bg-[#EDF4EE] transition-colors"
                       >
-                        <User className="h-4 w-4 text-[#5a7060]" />
+                        <User className="h-4 w-4 text-[#3D6647]" />
                         My Profile
                       </Link>
                       <Link
                         to="/certificates"
                         onClick={() => setProfileOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#1c2b22] hover:bg-[#f0ece0] transition-colors"
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#112918] hover:bg-[#EDF4EE] transition-colors"
                       >
-                        <Award className="h-4 w-4 text-[#5a7060]" />
+                        <Award className="h-4 w-4 text-[#3D6647]" />
                         My Certificates
                       </Link>
                       <Link
                         to="/settings"
                         onClick={() => setProfileOpen(false)}
-                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#1c2b22] hover:bg-[#f0ece0] transition-colors"
+                        className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-[#112918] hover:bg-[#EDF4EE] transition-colors"
                       >
-                        <Settings className="h-4 w-4 text-[#5a7060]" />
+                        <Settings className="h-4 w-4 text-[#3D6647]" />
                         Settings
                       </Link>
-                      <div className="border-t border-[#f0ece0] mt-1">
+                      <div className="border-t border-[#EDF4EE] mt-1">
                         <button
                           onClick={handleLogout}
                           className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
@@ -225,7 +225,7 @@ export function Navbar() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen((o) => !o)}
-              className="lg:hidden p-2 rounded-lg text-[#5a7060] hover:bg-[#f0ece0] transition-colors"
+              className="lg:hidden p-2 rounded-lg text-[#3D6647] hover:bg-[#EDF4EE] transition-colors"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -236,7 +236,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="lg:hidden border-t border-[#f0ece0] bg-white animate-fade-in">
+        <div className="lg:hidden border-t border-[#EDF4EE] bg-white animate-fade-in">
           <div className="section-container py-4 space-y-1">
             {NAV_LINKS.map(({ to, label, icon: Icon, exact }) => (
               <NavLink
@@ -249,7 +249,7 @@ export function Navbar() {
                     'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-500 font-body transition-all',
                     isActive
                       ? 'bg-green-50 text-green-700'
-                      : 'text-[#5a7060] hover:bg-[#f0ece0] hover:text-green-700'
+                      : 'text-[#3D6647] hover:bg-[#EDF4EE] hover:text-green-700'
                   )
                 }
               >
@@ -303,7 +303,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="bg-green-700 text-white/80">
+    <footer className="text-white/90" style={{background: "linear-gradient(135deg, #1E7034 0%, #3CB559 100%)"}}>
       <div className="section-container py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand */}

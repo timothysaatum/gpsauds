@@ -63,7 +63,7 @@ export function AcademicsPage() {
 
           {/* Search */}
           <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5a7060]" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#3D6647]" />
             <input
               value={search}
               onChange={(e) => { setSearch(e.target.value); resetPage() }}
@@ -127,7 +127,7 @@ export function AcademicsPage() {
           />
         ) : (
           <>
-            <p className="text-xs text-[#5a7060] mb-4 font-500">
+            <p className="text-xs text-[#3D6647] mb-4 font-500">
               Showing {(safePage - 1) * PAGE_SIZE + 1}–{Math.min(safePage * PAGE_SIZE, allItems.length)} of {allItems.length} resources
             </p>
 
@@ -137,7 +137,7 @@ export function AcademicsPage() {
                   key={resource.id}
                   className="card p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4 hover:shadow-card-md hover:-translate-y-0.5 transition-all"
                 >
-                  <div className="w-11 h-11 rounded-xl bg-[#f0ece0] flex items-center justify-center text-xl flex-shrink-0">
+                  <div className="w-11 h-11 rounded-xl bg-cream-dark flex items-center justify-center text-xl flex-shrink-0">
                     {FILE_TYPE_ICONS[resource.file_type] ?? '📁'}
                   </div>
 
@@ -152,8 +152,8 @@ export function AcademicsPage() {
                         </Badge>
                       )}
                     </div>
-                    <p className="font-body font-700 text-[#1c2b22] leading-tight">{resource.title}</p>
-                    <p className="text-xs text-[#5a7060] mt-1">
+                    <p className="font-body font-700 text-[#112918] leading-tight">{resource.title}</p>
+                    <p className="text-xs text-[#3D6647] mt-1">
                       {resource.course?.name ?? '—'} · {formatFileSize(resource.file_size_bytes)}
                       {resource.duration_mins && ` · ${resource.duration_mins} min`}
                     </p>
@@ -193,7 +193,7 @@ export function AcademicsPage() {
                   <button
                     onClick={() => { setPage((p) => Math.max(1, p - 1)); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
                     disabled={safePage === 1}
-                    className="flex items-center gap-1 px-3 py-2 rounded-xl text-sm font-600 border border-[#e4ddd1] bg-white text-[#5a7060] hover:border-green-300 hover:text-green-700 disabled:opacity-40 disabled:pointer-events-none transition-all"
+                    className="flex items-center gap-1 px-3 py-2 rounded-xl text-sm font-600 border border-[#D9EBD9] bg-white text-[#3D6647] hover:border-green-300 hover:text-green-700 disabled:opacity-40 disabled:pointer-events-none transition-all"
                   >
                     <ChevronLeft className="h-4 w-4" /> Prev
                   </button>
@@ -204,7 +204,7 @@ export function AcademicsPage() {
                       const ellipsisBefore = n === safePage - 2 && safePage > 4
                       const ellipsisAfter  = n === safePage + 2 && safePage < totalPages - 3
                       if (ellipsisBefore || ellipsisAfter) {
-                        return <span key={n} className="px-1 py-2 text-[#5a7060] text-sm self-end">…</span>
+                        return <span key={n} className="px-1 py-2 text-[#3D6647] text-sm self-end">…</span>
                       }
                       if (!show) return null
                       return (
@@ -215,7 +215,7 @@ export function AcademicsPage() {
                             'w-9 h-9 rounded-xl text-sm font-600 transition-all',
                             n === safePage
                               ? 'bg-green-700 text-white'
-                              : 'border border-[#e4ddd1] bg-white text-[#5a7060] hover:border-green-300 hover:text-green-700'
+                              : 'border border-[#D9EBD9] bg-white text-[#3D6647] hover:border-green-300 hover:text-green-700'
                           )}
                         >
                           {n}
@@ -227,12 +227,12 @@ export function AcademicsPage() {
                   <button
                     onClick={() => { setPage((p) => Math.min(totalPages, p + 1)); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
                     disabled={safePage === totalPages}
-                    className="flex items-center gap-1 px-3 py-2 rounded-xl text-sm font-600 border border-[#e4ddd1] bg-white text-[#5a7060] hover:border-green-300 hover:text-green-700 disabled:opacity-40 disabled:pointer-events-none transition-all"
+                    className="flex items-center gap-1 px-3 py-2 rounded-xl text-sm font-600 border border-[#D9EBD9] bg-white text-[#3D6647] hover:border-green-300 hover:text-green-700 disabled:opacity-40 disabled:pointer-events-none transition-all"
                   >
                     Next <ChevronRight className="h-4 w-4" />
                   </button>
                 </div>
-                <p className="text-center text-xs text-[#5a7060] mt-3">
+                <p className="text-center text-xs text-[#3D6647] mt-3">
                   Page {safePage} of {totalPages}
                 </p>
               </>
