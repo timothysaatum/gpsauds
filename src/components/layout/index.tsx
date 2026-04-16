@@ -5,43 +5,12 @@ import {
   BookOpen, Calendar, Heart, Briefcase, Newspaper, Award
 } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
-import { newsApi, notificationsApi } from '@/api/services'
+import { notificationsApi } from '@/api/services'
 import gpsaLogo from '@/assets/gpsa-logo.jpg'
 import { useAuthStore } from '@/store/authStore'
 import { Button, Badge } from '@/components/ui'
 import { cn, initials } from '@/utils'
 
-// ── Announcement Strip ────────────────────────────────────────────────────────
-
-// export function AnnouncementStrip() {
-//   const { data: announcements = [] } = useQuery({
-//     queryKey: ['strip-announcements'],
-//     queryFn: newsApi.getStripAnnouncements,
-//     staleTime: 5 * 60 * 1000,
-//   })
-
-//   const items = announcements.length > 0
-//     ? announcements.map((a) => a.title)
-//     : ['Welcome to GPSA-UDS Portal', 'Check the Events page for upcoming activities',
-//        'New opportunities available on the Opportunities Hub']
-
-//   const doubled = [...items, ...items]
-
-//   return (
-//     <div className="py-2.5 overflow-hidden" style={{background: "linear-gradient(90deg, #3CB559 0%, #52C96E 50%, #7DD98A 100%)"}}>
-//       <div className="flex">
-//         <div className="marquee-track">
-//           {doubled.map((item, i) => (
-//             <span key={i} className="inline-flex items-center gap-2 text-xs font-body font-500 text-gold-300 tracking-wide">
-//               <span className="text-gold-500 text-[10px]">◆</span>
-//               {item}
-//             </span>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
 
 // ── Navbar ────────────────────────────────────────────────────────────────────
 
