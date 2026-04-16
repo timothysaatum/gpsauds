@@ -9,26 +9,28 @@ import { eventsApi } from '@/api/services'
 import { Button, CardSkeleton, EmptyState, SectionHeader } from '@/components/ui'
 import { EventCard, CountdownBlock } from '@/components/shared'
 import { cn, formatDateTime } from '@/utils'
-
+import img1 from '@/assets/KCP_4243.jpg'
+import img2 from '@/assets/KCP_4248.jpg'
+import img3 from '@/assets/KCP_4495.jpg'
 // ── Slide data ─────────────────────────────────────────────────────────────────
 
 const SLIDES = [
   {
-    img: '/src/assets/KCP_4243.jpg',
+    img: img1,
     tag: 'Health Week 2025',
     heading: 'Welcome to',
     highlight: 'GPSA-UDS',
     sub: 'Empowering pharmacy students through academics, welfare, and professional development at UDS.',
   },
   {
-    img: '/src/assets/KCP_4248.jpg',
+    img: img2,
     tag: 'Community & Events',
     heading: 'One Family,',
     highlight: 'One Vision',
     sub: 'Join hundreds of pharmacy students driving change through collaboration and professional excellence.',
   },
   {
-    img: '/src/assets/KCP_4495.jpg',
+    img: img3,
     tag: 'PharmaCare Welfare',
     heading: 'Your Wellbeing,',
     highlight: 'Our Priority',
