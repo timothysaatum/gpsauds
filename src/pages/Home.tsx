@@ -31,7 +31,7 @@ const SLIDES = [
   },
   {
     img: img3,
-    tag: 'PharmaCare Welfare',
+    tag: 'GPSA Welfare',
     heading: 'Your Wellbeing,',
     highlight: 'Our Priority',
     sub: 'Access welfare support, academic resources, and exciting opportunities — all in one place.',
@@ -548,7 +548,7 @@ function SplitCards() {
             >
               <Heart className="h-7 w-7 text-red-500" />
             </div>
-            <h3 className="font-display text-2xl font-bold text-green-700 mb-3">PharmaCare Welfare</h3>
+            <h3 className="font-display text-2xl font-bold text-green-700 mb-3">GPSA Welfare</h3>
             <p className="text-muted text-sm leading-relaxed mb-6">
               Report issues, request support, or submit confidential concerns. We are here for you — always.
             </p>
