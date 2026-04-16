@@ -34,7 +34,7 @@ function AuthCard({ children, title, subtitle }: {
       <div className="bg-white rounded-3xl shadow-card-lg p-8">
         <div className="mb-7">
           <h1 className="font-display text-3xl font-bold text-green-700">{title}</h1>
-          {subtitle && <p className="text-sm text-[#3D6647] mt-1.5">{subtitle}</p>}
+          {subtitle && <p className="text-sm text-muted mt-1.5">{subtitle}</p>}
         </div>
         {children}
       </div>
@@ -65,7 +65,7 @@ function PasswordInput<T extends Record<string, any>>({
         <button
           type="button"
           onClick={() => setShow((s) => !s)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-[#3D6647] hover:text-green-700 transition-colors"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-green-700 transition-colors"
           tabIndex={-1}
         >
           {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -107,7 +107,7 @@ export function LoginPage() {
   return (
     <AuthCard title="Welcome back" subtitle="Sign in to your GPSA-UDS account">
       {sessionExpired && (
-        <div className="mb-5 flex items-center gap-2.5 bg-amber-50 border border-amber-200 rounded-xl p-3.5 text-sm text-amber-700">
+        <div className="mb-5 flex items-center gap-2.5 bg-gold-50 border border-gold-200 rounded-xl p-3.5 text-sm text-gold-700">
           <AlertCircle className="h-4 w-4 flex-shrink-0" />
           Your session has expired. Please sign in again.
         </div>
@@ -156,7 +156,7 @@ export function LoginPage() {
         </Button>
       </form>
 
-      <p className="text-center text-sm text-[#3D6647] mt-6">
+      <p className="text-center text-sm text-muted mt-6">
         Don't have an account?{' '}
         <Link to="/register" className="text-green-700 font-600 hover:text-green-600">
           Join GPSA →
@@ -206,7 +206,7 @@ export function RegisterPage() {
           <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle className="h-8 w-8 text-green-700" />
           </div>
-          <p className="text-sm text-[#3D6647] leading-relaxed mb-6">
+          <p className="text-sm text-muted leading-relaxed mb-6">
             We've sent a verification link to your email. Click it to activate your account and log in.
           </p>
           <Button variant="primary" size="md" onClick={() => navigate('/login')} className="w-full">
@@ -243,11 +243,11 @@ export function RegisterPage() {
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="form-label">Student ID <span className="text-[#3D6647] font-normal">(optional)</span></label>
+          <label className="form-label">Student ID <span className="text-muted font-normal">(optional)</span></label>
             <input {...register('student_id')} placeholder="UDS/PHARM/…" className="form-input" />
           </div>
           <div>
-            <label className="form-label">Level <span className="text-[#3D6647] font-normal">(optional)</span></label>
+          <label className="form-label">Level <span className="text-muted font-normal">(optional)</span></label>
             <select {...register('level')} className="form-select">
               <option value="">Select…</option>
               {[100, 200, 300, 400, 500, 600].map((l) => (
@@ -258,7 +258,7 @@ export function RegisterPage() {
         </div>
 
         <div>
-          <label className="form-label">Phone <span className="text-[#3D6647] font-normal">(optional)</span></label>
+          <label className="form-label">Phone <span className="text-muted font-normal">(optional)</span></label>
           <input {...register('phone')} placeholder="+233 XX XXX XXXX" className="form-input" />
         </div>
 
@@ -267,7 +267,7 @@ export function RegisterPage() {
         </Button>
       </form>
 
-      <p className="text-center text-sm text-[#3D6647] mt-6">
+      <p className="text-center text-sm text-muted mt-6">
         Already have an account?{' '}
         <Link to="/login" className="text-green-700 font-600 hover:text-green-600">
           Sign in →
@@ -294,7 +294,7 @@ export function ForgotPasswordPage() {
       {sent ? (
         <div className="text-center py-4">
           <CheckCircle className="h-12 w-12 text-green-700 mx-auto mb-4" />
-          <p className="text-sm text-[#3D6647] mb-5">
+          <p className="text-sm text-muted mb-5">
             If that email is registered, a reset link has been sent. Check your inbox.
           </p>
           <Link to="/login" className="text-green-700 font-600 text-sm">Back to Sign In →</Link>
@@ -339,7 +339,7 @@ export function VerifyEmailPage() {
         {mutation.isSuccess && (
           <>
             <CheckCircle className="h-12 w-12 text-green-700 mx-auto mb-4" />
-            <p className="text-sm text-[#3D6647] mb-5">Email verified! You can now sign in.</p>
+            <p className="text-sm text-muted mb-5">Email verified! You can now sign in.</p>
             <Button variant="primary" size="md" onClick={() => navigate('/login')} className="w-full">
               Sign In
             </Button>

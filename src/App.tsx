@@ -75,7 +75,7 @@ function NotFoundPage() {
     <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6">
       <span className="text-8xl mb-6">🔭</span>
       <h1 className="font-display text-5xl font-bold text-green-700 mb-3">404</h1>
-      <p className="text-[#5a7060] text-lg mb-8">This page doesn't exist.</p>
+      <p className="text-green-600 text-lg mb-8">This page doesn't exist.</p>
       <a href="/" className="btn-md btn-primary">Back to Home</a>
     </div>
   )

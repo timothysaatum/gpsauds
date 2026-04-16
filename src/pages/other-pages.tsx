@@ -80,7 +80,7 @@ export function WelfarePage() {
       title: 'Request Support',
       desc: 'Personal struggles, financial difficulty, or academic pressure — we can help.',
       cta: 'Get Help',
-      bg: 'bg-green-50 border-green-100',
+      bg: 'bg-green-50 border-green-200',
       btnVariant: 'primary' as const,
     },
     {
@@ -105,8 +105,8 @@ export function WelfarePage() {
             <div key={c.type} className={cn('card p-7 border flex flex-col gap-4', c.bg, activeCard === c.type && 'ring-2 ring-green-500')}>
               <span className="text-4xl">{c.icon}</span>
               <div>
-                <h3 className="font-body font-700 text-[#112918] text-lg mb-1">{c.title}</h3>
-                <p className="text-sm text-[#3D6647] leading-relaxed">{c.desc}</p>
+                <h3 className="font-body font-700 text-[#1B3D22] text-lg mb-1">{c.title}</h3>
+                <p className="text-sm text-muted leading-relaxed">{c.desc}</p>
               </div>
               <Button variant={c.btnVariant} size="md" className="mt-auto" onClick={() => handleCardClick(c.type)}>
                 {c.cta}
@@ -126,7 +126,7 @@ export function WelfarePage() {
               <div className="card p-8 text-center">
                 <CheckCircle className="h-14 w-14 text-green-700 mx-auto mb-4" />
                 <h3 className="font-display text-xl font-bold text-green-700 mb-2">Report Received</h3>
-                <p className="text-sm text-[#3D6647]">
+                <p className="text-sm text-muted">
                   Your report has been received. Our team will follow up within 48 hours.
                   All reports are handled with care and confidentiality.
                 </p>
@@ -189,12 +189,12 @@ export function WelfarePage() {
                         onClick={() => setValue('is_anonymous', !isAnonymous)}
                         className={cn(
                           'w-5 h-5 rounded flex items-center justify-center border-2 transition-all flex-shrink-0',
-                          isAnonymous ? 'bg-green-700 border-green-500' : 'border-[#D9EBD9] bg-white'
+                          isAnonymous ? 'bg-green-700 border-green-500' : 'border-cream-dark bg-white'
                         )}
                       >
                         {isAnonymous && <span className="text-white text-xs">✓</span>}
                       </div>
-                      <span className="text-sm font-500 text-[#112918]">Submit Anonymously</span>
+                      <span className="text-sm font-500 text-[#1B3D22]">Submit Anonymously</span>
                     </label>
                   )}
 
@@ -209,7 +209,7 @@ export function WelfarePage() {
 
         {/* Trust box */}
         <div className="border-l-4 border-green-500 pl-6 bg-green-50 py-5 pr-6 rounded-r-2xl mb-8">
-          <p className="text-sm text-[#3D6647] leading-relaxed italic">
+          <p className="text-sm text-muted leading-relaxed italic">
             "All reports are handled with care and confidentiality. Our Welfare Committee reviews every submission.
             No concern is too small — your wellbeing is our priority."
           </p>
@@ -221,11 +221,11 @@ export function WelfarePage() {
         {/* Issue of the week */}
         {spotlight && (
           <div className="card bg-gold-50 border-gold-200 p-7 max-w-2xl">
-            <h3 className="font-body font-700 text-[#112918] text-lg mb-3">📌 Issue of the Week</h3>
-            <p className="text-sm text-[#3D6647] italic leading-relaxed mb-4">"{spotlight.summary}"</p>
+            <h3 className="font-body font-700 text-[#1B3D22] text-lg mb-3">📌 Issue of the Week</h3>
+            <p className="text-sm text-muted italic leading-relaxed mb-4">"{spotlight.summary}"</p>
             <div className="border-t border-gold-200 pt-4">
               <p className="text-xs font-700 text-gold-700 uppercase tracking-wide mb-1">Action Taken</p>
-              <p className="text-sm text-[#3D6647]">{spotlight.action_taken}</p>
+              <p className="text-sm text-muted">{spotlight.action_taken}</p>
             </div>
           </div>
         )}
@@ -277,7 +277,7 @@ export function OpportunitiesPage() {
 
       <div className="section-container section-padding">
         <div className="relative max-w-lg mb-6">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#3D6647]" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
           <input value={search} onChange={(e) => setSearch(e.target.value)}
             placeholder='Search e.g. "internship" or "Ghana MoH"'
             className="form-input pl-11" />
@@ -285,11 +285,11 @@ export function OpportunitiesPage() {
 
         <div className="flex flex-wrap gap-6 mb-8">
           <div>
-            <p className="text-xs font-700 text-[#3D6647] uppercase tracking-wide mb-2">Type</p>
+          <p className="text-xs font-700 text-muted uppercase tracking-wide mb-2">Type</p>
             <FilterBar options={typeOptions} value={typeFilter} onChange={setTypeFilter} />
           </div>
           <div>
-            <p className="text-xs font-700 text-[#3D6647] uppercase tracking-wide mb-2">Deadline</p>
+          <p className="text-xs font-700 text-muted uppercase tracking-wide mb-2">Deadline</p>
             <FilterBar options={deadlineOptions} value={deadlineFilter} onChange={setDeadlineFilter} />
           </div>
         </div>
@@ -319,7 +319,7 @@ export function OpportunitiesPage() {
           <div className="bg-white rounded-3xl shadow-card-lg w-full max-w-sm p-8 animate-fade-up text-center">
             <span className="text-4xl mb-4 block">🔗</span>
             <h3 className="font-display text-xl font-bold text-green-700 mb-3">External Redirect</h3>
-            <p className="text-sm text-[#3D6647] mb-6">
+            <p className="text-sm text-muted mb-6">
               You are being redirected to an external website to complete your application for{' '}
               <strong>{redirectOpp.title}</strong>.
             </p>
@@ -425,7 +425,7 @@ export function NewsPage() {
         {/* Search + filters */}
         <div className="flex flex-col sm:flex-row gap-3 mb-6">
           <div className="relative flex-1 max-w-lg">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#3D6647]" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" />
             <input
               value={search}
               onChange={(e) => handleSearch(e.target.value)}
@@ -434,7 +434,7 @@ export function NewsPage() {
             />
           </div>
           {allFiltered.length > 0 && (
-            <p className="text-sm text-[#3D6647] self-center flex-shrink-0">
+            <p className="text-sm text-muted self-center flex-shrink-0">
               {allFiltered.length} {allFiltered.length === 1 ? 'post' : 'posts'}
             </p>
           )}
@@ -466,9 +466,9 @@ export function NewsPage() {
                 >
                   <div className={cn(
                     'lg:w-64 h-48 lg:h-auto flex items-center justify-center text-7xl flex-shrink-0',
-                    heroPost.category === 'announcement' ? 'bg-red-50' :
-                    heroPost.category === 'academic_update' ? 'bg-blue-50' :
-                    heroPost.category === 'welfare_update' ? 'bg-green-50' : 'bg-[#EDF4EE]'
+                    heroPost.category === 'announcement' ? 'bg-gold-50' :
+                    heroPost.category === 'academic_update' ? 'bg-green-50' :
+                    heroPost.category === 'welfare_update' ? 'bg-green-50' : 'bg-cream-dark'
                   )}>
                     {heroPost.banner_emoji ?? '📰'}
                   </div>
@@ -477,13 +477,13 @@ export function NewsPage() {
                       <Badge variant="green">{NEWS_CATEGORY_LABELS[heroPost.category]}</Badge>
                       {heroPost.is_urgent && <Badge variant="red">🔴 Urgent</Badge>}
                     </div>
-                    <h2 className="font-display text-2xl lg:text-3xl font-bold text-[#112918] mb-3 leading-snug">
+                    <h2 className="font-display text-2xl lg:text-3xl font-bold text-[#1B3D22] mb-3 leading-snug">
                       {heroPost.title}
                     </h2>
-                    <p className="text-[#3D6647] text-sm leading-relaxed line-clamp-3 mb-4">{heroPost.summary}</p>
+                    <p className="text-muted text-sm leading-relaxed line-clamp-3 mb-4">{heroPost.summary}</p>
                     <div className="flex items-center justify-between">
                       {heroPost.published_at && (
-                        <span className="text-xs text-[#3D6647]">{formatDate(heroPost.published_at)}</span>
+                        <span className="text-xs text-muted">{formatDate(heroPost.published_at)}</span>
                       )}
                       <span className="text-sm font-700 text-green-700">Read More →</span>
                     </div>
@@ -501,8 +501,8 @@ export function NewsPage() {
                       >
                         <div className={cn(
                           'w-16 h-16 rounded-xl flex items-center justify-center text-3xl flex-shrink-0',
-                          p.category === 'announcement' ? 'bg-red-50' :
-                          p.category === 'academic_update' ? 'bg-blue-50' : 'bg-[#EDF4EE]'
+                          p.category === 'announcement' ? 'bg-gold-50' :
+                          p.category === 'academic_update' ? 'bg-green-50' : 'bg-cream-dark'
                         )}>
                           {p.banner_emoji ?? '📰'}
                         </div>
@@ -511,11 +511,11 @@ export function NewsPage() {
                             <Badge variant="green">{NEWS_CATEGORY_LABELS[p.category]}</Badge>
                             {p.is_urgent && <Badge variant="red">Urgent</Badge>}
                           </div>
-                          <h3 className="font-body font-700 text-[#112918] text-sm leading-snug line-clamp-2 mb-1">
+                          <h3 className="font-body font-700 text-deep text-sm leading-snug line-clamp-2 mb-1">
                             {p.title}
                           </h3>
                           {p.published_at && (
-                            <p className="text-xs text-[#3D6647]">{formatDate(p.published_at)}</p>
+                            <p className="text-xs text-muted">{formatDate(p.published_at)}</p>
                           )}
                         </div>
                       </div>
@@ -540,7 +540,7 @@ export function NewsPage() {
                 <button
                   onClick={() => { setPage((p) => Math.max(1, p - 1)); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
                   disabled={safePage === 1}
-                  className="px-4 py-2 rounded-xl text-sm font-600 border border-[#D9EBD9] bg-white text-[#3D6647] hover:border-green-300 hover:text-green-700 disabled:opacity-40 disabled:pointer-events-none transition-all"
+                  className="px-4 py-2 rounded-xl text-sm font-600 border border-cream-dark bg-white text-muted hover:border-green-300 hover:text-green-700 disabled:opacity-40 disabled:pointer-events-none transition-all"
                 >
                   ← Prev
                 </button>
@@ -549,7 +549,7 @@ export function NewsPage() {
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) => {
                     const isEllipsis = totalPages > 7 && Math.abs(n - safePage) > 2 && n !== 1 && n !== totalPages
                     if (isEllipsis && (n === safePage - 3 || n === safePage + 3)) {
-                      return <span key={n} className="px-2 py-2 text-[#3D6647] text-sm">…</span>
+                      return <span key={n} className="px-2 py-2 text-muted text-sm">…</span>
                     }
                     if (isEllipsis) return null
                     return (
@@ -560,7 +560,7 @@ export function NewsPage() {
                           'w-9 h-9 rounded-xl text-sm font-600 transition-all',
                           n === safePage
                             ? 'bg-green-700 text-white shadow-card'
-                            : 'border border-[#D9EBD9] bg-white text-[#3D6647] hover:border-green-300 hover:text-green-700'
+                            : 'border border-cream-dark bg-white text-muted hover:border-green-300 hover:text-green-700'
                         )}
                       >
                         {n}
@@ -572,7 +572,7 @@ export function NewsPage() {
                 <button
                   onClick={() => { setPage((p) => Math.min(totalPages, p + 1)); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
                   disabled={safePage === totalPages}
-                  className="px-4 py-2 rounded-xl text-sm font-600 border border-[#D9EBD9] bg-white text-[#3D6647] hover:border-green-300 hover:text-green-700 disabled:opacity-40 disabled:pointer-events-none transition-all"
+                  className="px-4 py-2 rounded-xl text-sm font-600 border border-cream-dark bg-white text-muted hover:border-green-300 hover:text-green-700 disabled:opacity-40 disabled:pointer-events-none transition-all"
                 >
                   Next →
                 </button>
@@ -581,7 +581,7 @@ export function NewsPage() {
 
             {/* Page info */}
             {totalPages > 1 && (
-              <p className="text-center text-xs text-[#3D6647] mt-3">
+              <p className="text-center text-xs text-muted mt-3">
                 Page {safePage} of {totalPages} · {allFiltered.length} posts
               </p>
             )}
@@ -613,12 +613,12 @@ export function NewsDetailPage() {
   const relatedPosts = (related?.items ?? []).filter((p) => p.id !== id).slice(0, 3)
 
   const NEWS_BG: Record<string, string> = {
-    announcement:    'bg-red-50',
-    academic_update: 'bg-blue-50',
+    announcement:    'bg-gold-50',
+    academic_update: 'bg-green-50',
     welfare_update:  'bg-green-50',
-    events_recap:    'bg-purple-50',
-    opportunities:   'bg-yellow-50',
-    general:         'bg-[#EDF4EE]',
+    events_recap:    'bg-cream-dark',
+    opportunities:   'bg-gold-50',
+    general:         'bg-cream-dark',
   }
 
   if (isLoading) return (
@@ -651,7 +651,7 @@ export function NewsDetailPage() {
         </button>
 
         {/* Banner */}
-        <div className={cn('h-56 rounded-3xl flex items-center justify-center text-9xl mb-8', NEWS_BG[post.category] ?? 'bg-[#EDF4EE]')}>
+        <div className={cn('h-56 rounded-3xl flex items-center justify-center text-9xl mb-8', NEWS_BG[post.category] ?? 'bg-cream-dark')}>
           {post.banner_emoji ?? '📰'}
         </div>
 
@@ -666,7 +666,7 @@ export function NewsDetailPage() {
         </h1>
 
         {post.published_at && (
-          <p className="text-sm text-[#3D6647] mb-8 pb-8 border-b border-[#D9EBD9]">
+          <p className="text-sm text-muted mb-8 pb-8 border-b border-cream-dark">
             Published {formatDate(post.published_at)}
           </p>
         )}
@@ -674,17 +674,17 @@ export function NewsDetailPage() {
         {/* Summary callout */}
         {post.summary && (
           <div className="bg-green-50 border-l-4 border-green-500 rounded-r-xl p-5 mb-8">
-            <p className="text-[#112918] text-base leading-relaxed font-500">{post.summary}</p>
+            <p className="text-[#1B3D22] text-base leading-relaxed font-500">{post.summary}</p>
           </div>
         )}
 
         {/* Body */}
-        <div className="text-[#3D6647] leading-relaxed whitespace-pre-wrap font-body text-base space-y-4">
+        <div className="text-muted leading-relaxed whitespace-pre-wrap font-body text-base space-y-4">
           {post.body}
         </div>
 
         {/* Share / action row */}
-        <div className="mt-12 pt-8 border-t border-[#D9EBD9] flex items-center justify-between flex-wrap gap-4">
+        <div className="mt-12 pt-8 border-t border-cream-dark flex items-center justify-between flex-wrap gap-4">
           <button
             onClick={() => navigate('/news')}
             className="text-green-700 hover:text-green-600 text-sm font-600 flex items-center gap-1.5 transition-colors"
@@ -702,7 +702,7 @@ export function NewsDetailPage() {
 
       {/* Related posts */}
       {relatedPosts.length > 0 && (
-        <div className="mt-16 pt-12 border-t border-[#D9EBD9]">
+        <div className="mt-16 pt-12 border-t border-cream-dark">
           <div className="max-w-3xl mx-auto mb-6">
             <h2 className="font-display text-2xl font-bold text-green-700">More in {NEWS_CATEGORY_LABELS[post.category]}</h2>
           </div>
@@ -758,7 +758,7 @@ export function NotificationsPage() {
         <div>
           <h1 className="font-display text-3xl font-bold text-green-700">Notifications</h1>
           {unreadCount > 0 && (
-            <p className="text-sm text-[#3D6647] mt-1">{unreadCount} unread</p>
+            <p className="text-sm text-muted mt-1">{unreadCount} unread</p>
           )}
         </div>
         <div className="flex items-center gap-3">
@@ -768,7 +768,7 @@ export function NotificationsPage() {
               'flex items-center gap-2 px-3 py-1.5 rounded-xl text-sm font-500 border transition-all',
               unreadOnly
                 ? 'bg-green-50 border-green-200 text-green-700'
-                : 'bg-white border-[#D9EBD9] text-[#3D6647]'
+                : 'bg-white border-cream-dark text-muted'
             )}
           >
             {unreadOnly ? <Bell className="h-3.5 w-3.5" /> : <BellOff className="h-3.5 w-3.5" />}
@@ -794,21 +794,247 @@ export function NotificationsPage() {
               onClick={() => { if (!n.is_read) markRead.mutate(n.id); if (n.link) navigate(n.link) }}
               className={cn(
                 'card p-5 cursor-pointer hover:shadow-card-md transition-all flex gap-4',
-                !n.is_read && 'bg-green-50 border-green-100'
+                !n.is_read && 'bg-green-50 border-green-200'
               )}
             >
               <div className="w-2 h-2 rounded-full bg-green-700 flex-shrink-0 mt-2 opacity-0 transition-opacity"
                 style={{ opacity: n.is_read ? 0 : 1 }} />
               <div className="flex-1">
-                <p className={cn('text-sm font-600 text-[#112918]', !n.is_read && 'font-700')}>{n.title}</p>
-                <p className="text-sm text-[#3D6647] mt-0.5">{n.body}</p>
-                <p className="text-xs text-[#3D6647]/60 mt-1.5">{relativeTime(n.created_at)}</p>
+                <p className={cn('text-sm font-600 text-[#1B3D22]', !n.is_read && 'font-700')}>{n.title}</p>
+                <p className="text-sm text-muted mt-0.5">{n.body}</p>
+                <p className="text-xs text-muted opacity-60 mt-1.5">{relativeTime(n.created_at)}</p>
               </div>
-              {n.link && <ChevronRight className="h-4 w-4 text-[#3D6647] flex-shrink-0 mt-1" />}
+              {n.link && <ChevronRight className="h-4 w-4 text-muted flex-shrink-0 mt-1" />}
             </div>
           ))}
         </div>
       )}
     </div>
+  )
+}
+// ── About Page ────────────────────────────────────────────────────────────────
+
+export function AboutPage() {
+  return (
+    <>
+      <PageHeader
+        title="About GPSA-UDS"
+        subtitle="Who we are, what we stand for, and the community we are building."
+      />
+
+      <div className="section-container section-padding">
+
+        {/* Mission & Vision */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+          <div
+            className="rounded-3xl p-8 relative overflow-hidden"
+            style={{ background: 'linear-gradient(135deg, #3CB559 0%, #52C96E 50%, #7DD98A 100%)' }}
+          >
+            <div className="absolute inset-0 pointer-events-none"
+              style={{ background: 'radial-gradient(ellipse at 80% 20%, rgba(242,193,46,0.18) 0%, transparent 60%)' }} />
+            <div className="relative">
+              <span className="text-4xl mb-4 block">🎯</span>
+              <h3 className="font-display text-2xl font-bold text-white mb-3">Our Mission</h3>
+              <p className="text-white/75 text-sm leading-relaxed">
+                To promote the academic, social, and professional development of pharmacy students at the
+                University for Development Studies, while advocating for their welfare and rights.
+              </p>
+            </div>
+          </div>
+
+          <div className="card p-8">
+            <span className="text-4xl mb-4 block">🔭</span>
+            <h3 className="font-display text-2xl font-bold text-green-700 mb-3">Our Vision</h3>
+            <p className="text-muted text-sm leading-relaxed">
+              To be the leading pharmacy students' association in Ghana — known for excellence,
+              unity, and impactful community service that shapes the future of pharmaceutical practice.
+            </p>
+          </div>
+        </div>
+
+        {/* What we do */}
+        <div className="mb-14">
+          <h2 className="section-title mb-2">What We Do</h2>
+          <div className="divider mb-8" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { emoji: '📚', title: 'Academics', desc: 'We provide study resources, past questions, lecture notes, and academic support to help students excel in their studies.' },
+              { emoji: '❤️', title: 'Welfare', desc: 'Our PharmaCare team ensures every student has access to support — whether academic, financial, health-related, or personal.' },
+              { emoji: '💼', title: 'Opportunities', desc: 'We connect pharmacy students with internships, scholarships, research programmes, and career development resources.' },
+            ].map(({ emoji, title, desc }) => (
+              <div key={title} className="card p-7">
+                <span className="text-4xl mb-4 block">{emoji}</span>
+                <h3 className="font-body font-700 text-[#1B3D22] text-lg mb-2">{title}</h3>
+                <p className="text-sm text-muted leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Executives placeholder */}
+        <div className="mb-14">
+          <h2 className="section-title mb-2">The Executive Team</h2>
+          <div className="divider mb-8" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { role: 'President',          name: 'Name Here' },
+              { role: 'Vice President',     name: 'Name Here' },
+              { role: 'Secretary',          name: 'Name Here' },
+              { role: 'Financial Secretary',name: 'Name Here' },
+            ].map(({ role, name }) => (
+              <div key={role} className="card p-6 text-center">
+                <div
+                  className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl"
+                  style={{ background: 'linear-gradient(135deg, #3CB559, #7DD98A)' }}
+                >
+                  👤
+                </div>
+                <p className="font-body font-700 text-[#1B3D22] text-sm">{name}</p>
+                <p className="text-xs text-muted mt-1">{role}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-muted text-center mt-4">
+            Update names and photos in <code className="font-mono bg-cream-dark px-1 rounded">other-pages.tsx</code> → AboutPage.
+          </p>
+        </div>
+
+        {/* Reach out */}
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="card p-10">
+            <span className="text-4xl mb-5 block">📬</span>
+            <h3 className="font-display text-2xl font-bold text-green-700 mb-3">Get in Touch</h3>
+            <p className="text-muted text-sm mb-6">
+              Have questions or want to get involved? Reach out to the GPSA-UDS executive team
+              through any of our social media platforms or via the welfare portal.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 text-sm font-600">
+              {[
+                { label: 'WhatsApp',  emoji: '💬', color: 'bg-green-50 text-green-700 border-green-200' },
+                { label: 'Instagram', emoji: '📸', color: 'bg-gold-50 text-gold-700 border-gold-200' },
+                { label: 'LinkedIn',  emoji: '💼', color: 'bg-green-50 text-green-700 border-green-200' },
+              ].map(({ label, emoji, color }) => (
+                <span key={label} className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border ${color}`}>
+                  {emoji} {label}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </>
+  )
+}
+
+// ── Gallery Page ──────────────────────────────────────────────────────────────
+
+const GALLERY_ITEMS = [
+  { id: 1,  emoji: '🎓', label: 'Graduation Ceremony 2024',   category: 'events' },
+  { id: 2,  emoji: '🏥', label: 'Health Week 2024',           category: 'health' },
+  { id: 3,  emoji: '📚', label: 'Academic Symposium',         category: 'academic' },
+  { id: 4,  emoji: '🤝', label: 'Community Outreach',         category: 'outreach' },
+  { id: 5,  emoji: '🎤', label: 'Public Speaking Contest',    category: 'events' },
+  { id: 6,  emoji: '🌿', label: 'Field Trip – Herbarium',     category: 'academic' },
+  { id: 7,  emoji: '⚽', label: 'Inter-Level Sports Day',     category: 'social' },
+  { id: 8,  emoji: '🍽️', label: 'End-of-Year Dinner',        category: 'social' },
+  { id: 9,  emoji: '🔬', label: 'Lab Skills Workshop',        category: 'academic' },
+  { id: 10, emoji: '📣', label: 'GPSA Induction Ceremony',    category: 'events' },
+  { id: 11, emoji: '💊', label: 'Drug Awareness Campaign',    category: 'health' },
+  { id: 12, emoji: '🤲', label: 'Blood Donation Drive',       category: 'outreach' },
+]
+
+const GALLERY_BG: Record<string, string> = {
+  events:   'bg-green-50',
+  health:   'bg-gold-50',
+  academic: 'bg-cream-dark',
+  outreach: 'bg-green-50',
+  social:   'bg-gold-50',
+}
+
+const GALLERY_CATEGORIES = [
+  { value: 'all',      label: 'All' },
+  { value: 'events',   label: 'Events' },
+  { value: 'academic', label: 'Academic' },
+  { value: 'health',   label: 'Health' },
+  { value: 'outreach', label: 'Outreach' },
+  { value: 'social',   label: 'Social' },
+]
+
+export function GalleryPage() {
+  const [filter, setFilter] = useState<string>('all')
+  const [lightbox, setLightbox] = useState<typeof GALLERY_ITEMS[number] | null>(null)
+
+  const filtered = filter === 'all' ? GALLERY_ITEMS : GALLERY_ITEMS.filter((g) => g.category === filter)
+
+  return (
+    <>
+      <PageHeader title="Gallery" subtitle="Moments, memories, and milestones from the GPSA-UDS community." />
+
+      <div className="section-container section-padding">
+
+        {/* Filter bar */}
+        <div className="flex flex-wrap gap-2 mb-8">
+          {GALLERY_CATEGORIES.map(({ value, label }) => (
+            <button
+              key={value}
+              onClick={() => setFilter(value)}
+              className={[
+                'px-4 py-2 rounded-xl text-sm font-600 font-body border transition-all duration-150',
+                filter === value
+                  ? 'bg-green-700 text-white border-green-700 shadow-card'
+                  : 'bg-white text-muted border-cream-dark hover:border-green-300 hover:text-green-700',
+              ].join(' ')}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {filtered.map((item) => (
+            <div
+              key={item.id}
+              onClick={() => setLightbox(item)}
+              className={[
+                GALLERY_BG[item.category] ?? 'bg-cream-dark',
+                'rounded-2xl h-44 flex flex-col items-center justify-center gap-2 cursor-pointer',
+                'hover:shadow-card-md hover:-translate-y-1 transition-all group border border-cream-dark',
+              ].join(' ')}
+            >
+              <span className="text-5xl group-hover:scale-110 transition-transform">{item.emoji}</span>
+              <p className="text-xs font-700 text-green-700 text-center px-3 line-clamp-2">{item.label}</p>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-center text-xs text-muted mt-8">
+          Replace emoji placeholders with real photos by updating <code className="font-mono bg-cream-dark px-1 rounded">GALLERY_ITEMS</code> in <code className="font-mono bg-cream-dark px-1 rounded">other-pages.tsx</code>.
+        </p>
+      </div>
+
+      {/* Lightbox */}
+      {lightbox && (
+        <div
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-6"
+          onClick={() => setLightbox(null)}
+        >
+          <div
+            className={['rounded-3xl p-12 flex flex-col items-center gap-4 max-w-sm w-full', GALLERY_BG[lightbox.category] ?? 'bg-white'].join(' ')}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="text-8xl">{lightbox.emoji}</span>
+            <p className="font-display text-xl font-bold text-green-700 text-center">{lightbox.label}</p>
+            <button
+              onClick={() => setLightbox(null)}
+              className="mt-2 text-sm text-muted hover:text-green-700 font-600 transition-colors"
+            >
+              Close ✕
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   )
 }

@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
-import { AnnouncementStrip, Navbar, Footer } from './index'
+import { Footer, Navbar } from './index'
+import { AnnouncementStrip } from './AnnouncementStrip'
 
 export function RootLayout() {
   return (
@@ -18,7 +19,7 @@ export function RootLayout() {
 
 export function AuthLayout() {
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{background:"linear-gradient(135deg,#1E7034 0%,#3CB559 55%,#7DD98A 100%)"}}>
+    <div className="min-h-screen relative overflow-hidden" style={{background:"linear-gradient(135deg,#3CB559 0%,#52C96E 50%,#7DD98A 100%)"}}>
       {/* Background pattern */}
       <div
         className="absolute inset-0 opacity-[0.04]"

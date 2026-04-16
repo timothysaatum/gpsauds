@@ -1,13 +1,16 @@
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { useState, useEffect, useCallback } from 'react'
-import { ArrowRight, BookOpen, Heart, Newspaper, Briefcase, Users, ChevronLeft, ChevronRight } from 'lucide-react'
-import { eventsApi, newsApi } from '@/api/services'
+import {
+  ArrowRight, BookOpen, Heart, Newspaper,
+  Briefcase, Users, ChevronLeft, ChevronRight,
+} from 'lucide-react'
+import { eventsApi } from '@/api/services'
 import { Button, CardSkeleton, EmptyState, SectionHeader } from '@/components/ui'
-import { EventCard, NewsCard, CountdownBlock } from '@/components/shared'
+import { EventCard, CountdownBlock } from '@/components/shared'
 import { cn, formatDateTime } from '@/utils'
 
-// ── Hero Carousel ─────────────────────────────────────────────────────────────
+// ── Slide data ─────────────────────────────────────────────────────────────────
 
 const SLIDES = [
   {
@@ -33,216 +36,361 @@ const SLIDES = [
   },
 ]
 
+const SLIDE_INTERVAL_MS = 5500
+const SWIPE_THRESHOLD   = 50
+
+// ── Hero ───────────────────────────────────────────────────────────────────────
+
 function Hero() {
   const navigate = useNavigate()
-  const [current, setCurrent] = useState(0)
-  const [animating, setAnimating] = useState(false)
+  const [current, setCurrent]         = useState(0)
+  const [transitioning, setTransitioning] = useState(false)
+  const dragStartX = useRef<number | null>(null)
 
-  const go = useCallback((next: number) => {
-    if (animating) return
-    setAnimating(true)
-    setTimeout(() => {
-      setCurrent(next)
-      setAnimating(false)
-    }, 400)
-  }, [animating])
+  // go() is the single function that drives all navigation
+  const go = useCallback(
+    (next: number) => {
+      if (transitioning) return
+      setTransitioning(true)
+      setTimeout(() => {
+        setCurrent(next)
+        setTransitioning(false)
+      }, 380)
+    },
+    [transitioning],
+  )
 
-  const prev = () => go((current - 1 + SLIDES.length) % SLIDES.length)
-  const next = () => go((current + 1) % SLIDES.length)
+  const prev = useCallback(() => go((current - 1 + SLIDES.length) % SLIDES.length), [current, go])
+  const next = useCallback(() => go((current + 1) % SLIDES.length), [current, go])
 
   // Auto-advance
   useEffect(() => {
-    const t = setTimeout(() => go((current + 1) % SLIDES.length), 5500)
+    const t = setTimeout(() => go((current + 1) % SLIDES.length), SLIDE_INTERVAL_MS)
     return () => clearTimeout(t)
   }, [current, go])
+
+  // ── Pointer / touch swipe support ──────────────────────────────────────────
+  const onPointerDown = (e: React.PointerEvent) => {
+    dragStartX.current = e.clientX
+  }
+  const onPointerUp = (e: React.PointerEvent) => {
+    if (dragStartX.current === null) return
+    const delta = e.clientX - dragStartX.current
+    dragStartX.current = null
+    if (Math.abs(delta) > SWIPE_THRESHOLD) {
+      delta > 0 ? prev() : next()
+    }
+  }
+  const onPointerLeave = () => { dragStartX.current = null }
 
   const slide = SLIDES[current]
 
   return (
-    <section className="relative overflow-hidden min-h-[92vh] flex items-end">
+    <>
+      {/* ── Injected keyframes ── */}
+      <style>{`
+        @keyframes heroFadeUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0);    }
+        }
+        @keyframes kenBurns {
+          from { transform: scale(1);    }
+          to   { transform: scale(1.07); }
+        }
+        @keyframes heroProgressBar {
+          from { width: 0%;    }
+          to   { width: 100%; }
+        }
+        .hero-content-animate {
+          animation: heroFadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+      `}</style>
 
-      {/* ── Photo layer ── */}
-      <div
-        className="absolute inset-0 transition-opacity duration-700"
-        style={{ opacity: animating ? 0 : 1 }}
+      <section
+        className="relative overflow-hidden select-none"
+        style={{ minHeight: 'min(92vh, 820px)', touchAction: 'pan-y' }}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerLeave={onPointerLeave}
       >
-        <img
-          key={slide.img}
-          src={slide.img}
-          alt=""
-          className="w-full h-full object-cover object-center"
-        />
-      </div>
+        {/* ── All slide images: pre-rendered, switched by opacity ── */}
+        {SLIDES.map((s, i) => (
+          <div
+            key={i}
+            aria-hidden={i !== current}
+            className="absolute inset-0 transition-opacity duration-700"
+            style={{ opacity: i === current ? 1 : 0 }}
+          >
+            <img
+              src={s.img}
+              alt=""
+              className="w-full h-full object-cover object-center"
+              style={
+                i === current
+                  ? { animation: 'kenBurns 7s ease-out forwards' }
+                  : undefined
+              }
+            />
+          </div>
+        ))}
 
-      {/* ── Gradient overlays ── */}
-      {/* Bottom-up dark for text legibility */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(to top, rgba(17,41,24,0.96) 0%, rgba(17,41,24,0.68) 40%, rgba(17,41,24,0.12) 75%, transparent 100%)',
-        }}
-      />
-      {/* Left diagonal green brand tint */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(120deg, rgba(60,181,89,0.50) 0%, transparent 55%)',
-        }}
-      />
-      {/* Accent gold glow top-right */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: 'radial-gradient(ellipse at 85% 10%, rgba(242,193,46,0.18) 0%, transparent 50%)',
-        }}
-      />
-
-      {/* ── Content ── */}
-      <div className="relative w-full section-container pb-16 lg:pb-24 pt-32">
+        {/* ── Gradient overlays ── */}
         <div
-          className="max-w-2xl"
+          className="absolute inset-0 pointer-events-none"
           style={{
-            opacity: animating ? 0 : 1,
-            transform: animating ? 'translateY(12px)' : 'translateY(0)',
-            transition: 'opacity 0.5s ease, transform 0.5s ease',
+            background:
+              'linear-gradient(to top, rgba(27,61,34,0.94) 0%, rgba(27,61,34,0.60) 42%, rgba(27,61,34,0.10) 78%, transparent 100%)',
           }}
-        >
-          {/* Tag pill */}
-          <span
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-700 uppercase tracking-widest mb-6"
+        />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'linear-gradient(118deg, rgba(60,181,89,0.28) 0%, transparent 50%)',
+          }}
+        />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse at 88% 8%, rgba(242,193,46,0.13) 0%, transparent 50%)',
+          }}
+        />
+
+        {/* ── Auto-advance progress bar ── */}
+        <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/10 z-20">
+          <div
+            key={`pb-${current}`}
+            className="h-full rounded-full"
             style={{
               background: 'linear-gradient(90deg, #3CB559, #7DD98A)',
-              color: '#112918',
+              animation: `heroProgressBar ${SLIDE_INTERVAL_MS}ms linear forwards`,
             }}
-          >
-            <span className="w-1.5 h-1.5 bg-[#112918] rounded-full opacity-60" />
-            {slide.tag}
-          </span>
-
-          <h1
-            className="font-display font-bold text-white leading-[1.03] tracking-tight mb-4"
-            style={{ fontSize: 'clamp(2.8rem, 7vw, 5rem)' }}
-          >
-            {slide.heading}{' '}
-            <span
-              style={{
-                backgroundImage: 'linear-gradient(90deg, #F2C12E, #f5cf55)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-              }}
-            >
-              {slide.highlight}
-            </span>
-          </h1>
-
-          <p className="text-lg text-white/70 leading-relaxed mb-10 max-w-xl">
-            {slide.sub}
-          </p>
-
-          <div className="flex flex-wrap gap-4">
-            <Button
-              variant="gold"
-              size="lg"
-              onClick={() => navigate('/events')}
-              rightIcon={<ArrowRight className="h-4 w-4" />}
-            >
-              Register for Events
-            </Button>
-            <Button variant="outline-white" size="lg" onClick={() => navigate('/academics')}>
-              Explore Academics
-            </Button>
-          </div>
+          />
         </div>
 
-        {/* ── Stats row ── */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-2xl">
-          {[
-            { value: '600+', label: 'Active Students' },
-            { value: '6',    label: 'Year Levels' },
-            { value: '100+', label: 'Resources' },
-            { value: '10+',  label: 'Events Yearly' },
-          ].map(({ value, label }) => (
-            <div
-              key={label}
-              className="rounded-2xl px-4 py-3 border border-white/10 backdrop-blur-sm"
-              style={{ background: 'rgba(255,255,255,0.07)' }}
-            >
-              <p className="font-display text-2xl font-bold text-white">{value}</p>
-              <p className="text-xs text-white/50 font-500 mt-0.5">{label}</p>
-            </div>
-          ))}
-        </div>
+        {/* ── Side arrows — hidden on xs, visible sm+ ── */}
+        <button
+          onClick={prev}
+          aria-label="Previous slide"
+          className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 hidden sm:flex w-10 h-10 md:w-11 md:h-11 rounded-full items-center justify-center border border-white/20 bg-black/25 text-white backdrop-blur-sm hover:bg-white/20 hover:border-white/40 transition-all duration-200"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          onClick={next}
+          aria-label="Next slide"
+          className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 hidden sm:flex w-10 h-10 md:w-11 md:h-11 rounded-full items-center justify-center border border-white/20 bg-black/25 text-white backdrop-blur-sm hover:bg-white/20 hover:border-white/40 transition-all duration-200"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
 
-        {/* ── Carousel controls ── */}
-        <div className="mt-10 flex items-center gap-4">
-          {/* Dot indicators */}
-          <div className="flex gap-2">
-            {SLIDES.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => go(i)}
-                className="transition-all duration-300 rounded-full"
+        {/* ── Main content ── */}
+        <div
+          className="relative z-10 section-container flex flex-col"
+          style={{ minHeight: 'inherit' }}
+        >
+          <div className="mt-auto pb-12 sm:pb-14 lg:pb-20 pt-24 sm:pt-28">
+
+            {/*
+              key={current} forces React to unmount + remount this node on
+              every slide change → CSS animation replays automatically.
+            */}
+            <div key={current} className="hero-content-animate max-w-2xl">
+
+              {/* Tag pill */}
+              <span
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-700 uppercase tracking-widest mb-5"
                 style={{
-                  width:  i === current ? 28 : 8,
-                  height: 8,
-                  background: i === current
-                    ? 'linear-gradient(90deg, #3CB559, #7DD98A)'
-                    : 'rgba(255,255,255,0.35)',
+                  background: 'linear-gradient(90deg, #3CB559, #7DD98A)',
+                  color: '#1B3D22',
                 }}
-              />
-            ))}
-          </div>
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1B3D22] opacity-60" />
+                {slide.tag}
+              </span>
 
-          {/* Prev / Next */}
-          <div className="flex gap-2 ml-auto">
-            <button
-              onClick={prev}
-              className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/15 transition-all"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              onClick={next}
-              className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-white/15 transition-all"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
+              {/* Heading */}
+              <h1
+                className="font-display font-bold text-white leading-[1.03] tracking-tight mb-4"
+                style={{ fontSize: 'clamp(2.4rem, 6.5vw, 4.8rem)' }}
+              >
+                {slide.heading}{' '}
+                <span
+                  style={{
+                    backgroundImage: 'linear-gradient(90deg, #F2C12E, #f5cf55)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
+                  {slide.highlight}
+                </span>
+              </h1>
+
+              <p className="text-base sm:text-lg text-white/70 leading-relaxed mb-8 max-w-xl">
+                {slide.sub}
+              </p>
+
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  variant="gold"
+                  size="lg"
+                  onClick={() => navigate('/events')}
+                  rightIcon={<ArrowRight className="h-4 w-4" />}
+                >
+                  Register for Events
+                </Button>
+                <Button
+                  variant="outline-white"
+                  size="lg"
+                  onClick={() => navigate('/academics')}
+                >
+                  Learn More
+                </Button>
+              </div>
+            </div>
+
+            {/* ── Controls row ── */}
+            <div className="mt-7 flex items-center gap-3">
+
+              {/* Prev — mobile only (xs), since side arrows cover sm+ */}
+              <button
+                onClick={prev}
+                aria-label="Previous slide"
+                className="sm:hidden flex w-9 h-9 rounded-full border border-white/25 items-center justify-center text-white bg-black/20 active:scale-95 transition-all"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+
+              {/* Dot indicators */}
+              <div className="flex gap-2 items-center">
+                {SLIDES.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => go(i)}
+                    aria-label={`Go to slide ${i + 1}`}
+                    className="transition-all duration-300 rounded-full"
+                    style={{
+                      width:  i === current ? 24 : 7,
+                      height: 7,
+                      background:
+                        i === current
+                          ? 'linear-gradient(90deg, #3CB559, #7DD98A)'
+                          : 'rgba(255,255,255,0.35)',
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Slide counter — desktop */}
+              <span className="hidden sm:inline text-xs text-white/35 font-mono tabular-nums ml-1">
+                {String(current + 1).padStart(2, '0')}&thinsp;/&thinsp;{String(SLIDES.length).padStart(2, '0')}
+              </span>
+
+              {/* Next — mobile only */}
+              <button
+                onClick={next}
+                aria-label="Next slide"
+                className="sm:hidden flex w-9 h-9 rounded-full border border-white/25 items-center justify-center text-white bg-black/20 active:scale-95 transition-all"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
 
-// ── Quick actions ─────────────────────────────────────────────────────────────
+// ── Quick actions ──────────────────────────────────────────────────────────────
+
+const QUICK_ACTIONS = [
+  {
+    icon: Users,
+    label: 'Join GPSA',
+    desc: 'Register as an official member',
+    to: '/register',
+    iconColor: '#3CB559',
+    iconBg: 'rgba(60,181,89,0.09)',
+    glowColor: 'rgba(60,181,89,0.18)',
+    borderHover: 'hover:border-green-300',
+  },
+  {
+    icon: BookOpen,
+    label: 'Academics',
+    desc: 'Slides, questions, lab reports',
+    to: '/academics',
+    iconColor: '#3CB559',
+    iconBg: 'rgba(60,181,89,0.07)',
+    glowColor: 'rgba(60,181,89,0.14)',
+    borderHover: 'hover:border-green-300',
+  },
+  {
+    icon: Newspaper,
+    label: 'About Us',
+    desc: 'Who we are and what we stand for',
+    to: '/about',
+    iconColor: '#C8991A',
+    iconBg: 'rgba(242,193,46,0.10)',
+    glowColor: 'rgba(242,193,46,0.22)',
+    borderHover: 'hover:border-gold-200',
+  },
+  {
+    icon: Heart,
+    label: 'Gallery',
+    desc: 'Photos and memories from our events',
+    to: '/gallery',
+    iconColor: '#C8991A',
+    iconBg: 'rgba(242,193,46,0.10)',
+    glowColor: 'rgba(242,193,46,0.22)',
+    borderHover: 'hover:border-gold-200',
+  },
+]
 
 function QuickActions() {
   const navigate = useNavigate()
-  const actions = [
-    { icon: Users,     label: 'Join GPSA',      desc: 'Register as an official member',     to: '/register',  color: 'bg-green-50 text-green-700', border: 'hover:border-green-300' },
-    { icon: Heart,     label: 'Welfare',         desc: 'Report issues or request help',      to: '/welfare',   color: 'bg-red-50 text-red-600',   border: 'hover:border-red-200' },
-    { icon: BookOpen,  label: 'Academics',       desc: 'Slides, questions, lab reports',     to: '/academics', color: 'bg-blue-50 text-blue-700', border: 'hover:border-blue-200' },
-    { icon: Newspaper, label: 'Latest News',     desc: 'Official updates & announcements',   to: '/news',      color: 'bg-yellow-50 text-yellow-700', border: 'hover:border-yellow-200' },
-  ]
+
   return (
-    <section className="section-padding bg-[#EDF4EE]">
+    <section className="section-padding bg-cream-dark">
       <div className="section-container">
         <SectionHeader title="Quick Actions" subtitle="Jump straight to what you need" />
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {actions.map(({ icon: Icon, label, desc, to, color, border }) => (
+          {QUICK_ACTIONS.map(({ icon: Icon, label, desc, to, iconColor, iconBg, glowColor, borderHover }) => (
             <button
               key={label}
               onClick={() => navigate(to)}
-              className={cn('card p-5 lg:p-6 text-left border hover:shadow-card-md hover:-translate-y-1 transition-all group', border)}
+              className={cn(
+                'card p-5 lg:p-6 text-left border border-transparent hover:shadow-card-md hover:-translate-y-1 transition-all group relative overflow-hidden',
+                borderHover,
+              )}
             >
-              <div className={cn('w-11 h-11 rounded-xl flex items-center justify-center mb-4', color)}>
-                <Icon className="h-5 w-5" />
+              {/* Corner accent glow — reveals on hover */}
+              <div
+                className="absolute -top-5 -right-5 w-24 h-24 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{ background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)` }}
+              />
+
+              {/* Icon badge */}
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center mb-4 transition-transform duration-200 group-hover:scale-110"
+                style={{ background: iconBg }}
+              >
+                <Icon className="h-5 w-5" style={{ color: iconColor }} />
               </div>
-              <h3 className="font-body font-700 text-[#112918] mb-1 group-hover:text-green-700 transition-colors text-sm lg:text-base">{label}</h3>
-              <p className="text-xs text-[#3D6647] leading-relaxed hidden sm:block">{desc}</p>
-              <span className="mt-3 inline-flex items-center gap-1 text-xs font-700 text-green-700">
-                Explore <ArrowRight className="h-3 w-3" />
+
+              <h3 className="font-body font-700 text-green-800 mb-1 text-sm lg:text-base">
+                {label}
+              </h3>
+              <p className="text-xs text-green-600 leading-relaxed hidden sm:block">{desc}</p>
+
+              <span
+                className="mt-3 inline-flex items-center gap-1 text-xs font-700"
+                style={{ color: iconColor }}
+              >
+                Explore{' '}
+                <ArrowRight className="h-3 w-3 transition-transform duration-150 group-hover:translate-x-0.5" />
               </span>
             </button>
           ))}
@@ -252,7 +400,7 @@ function QuickActions() {
   )
 }
 
-// ── Featured event ────────────────────────────────────────────────────────────
+// ── Featured event ─────────────────────────────────────────────────────────────
 
 function FeaturedEvent() {
   const navigate = useNavigate()
@@ -273,15 +421,16 @@ function FeaturedEvent() {
     <div className="section-container mb-12">
       <div
         className="rounded-3xl p-8 lg:p-10 flex flex-col lg:flex-row gap-8 items-start lg:items-center overflow-hidden relative"
-        style={{ background: 'linear-gradient(135deg, #1E7034 0%, #3CB559 55%, #7DD98A 100%)' }}
+        style={{ background: 'linear-gradient(135deg, #3CB559 0%, #52C96E 50%, #7DD98A 100%)' }}
       >
-        <div className="absolute inset-0 pointer-events-none"
+        <div
+          className="absolute inset-0 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse at 80% 50%, rgba(242,193,46,0.15) 0%, transparent 60%)' }}
         />
         <div className="text-5xl lg:text-6xl flex-shrink-0 relative">{event.banner_emoji ?? '🎓'}</div>
         <div className="flex-1 relative">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-500/20 text-red-300 rounded-full text-xs font-700 uppercase tracking-wide mb-3">
-            🔴 Featured Event
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-gold-500/15 text-gold-700 rounded-full text-xs font-700 uppercase tracking-wide mb-3">
+            ⭐ Featured Event
           </span>
           <h2 className="font-display text-2xl lg:text-3xl font-bold text-white mb-2">{event.title}</h2>
           <p className="text-white/60 text-sm mb-4">
@@ -297,7 +446,7 @@ function FeaturedEvent() {
   )
 }
 
-// ── Upcoming events ───────────────────────────────────────────────────────────
+// ── Upcoming events ────────────────────────────────────────────────────────────
 
 function UpcomingEvents() {
   const navigate = useNavigate()
@@ -313,7 +462,12 @@ function UpcomingEvents() {
           title="Upcoming Events"
           subtitle="Don't miss out — register now"
           action={
-            <Button variant="ghost" size="sm" onClick={() => navigate('/events')} rightIcon={<ArrowRight className="h-4 w-4" />}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/events')}
+              rightIcon={<ArrowRight className="h-4 w-4" />}
+            >
               View All
             </Button>
           }
@@ -337,22 +491,24 @@ function UpcomingEvents() {
   )
 }
 
-// ── Opportunities & Welfare ───────────────────────────────────────────────────
+// ── Opportunities & Welfare ────────────────────────────────────────────────────
 
 function SplitCards() {
   const navigate = useNavigate()
   return (
-    <section className="section-padding bg-[#EDF4EE]">
+    <section className="section-padding bg-cream-dark">
       <div className="section-container">
         <SectionHeader title="Opportunities & Welfare" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
           {/* Opportunities */}
           <div
             className="rounded-3xl p-8 relative overflow-hidden cursor-pointer group"
-            style={{ background: 'linear-gradient(135deg, #1E7034 0%, #3CB559 55%, #7DD98A 100%)' }}
+            style={{ background: 'linear-gradient(135deg, #3CB559 0%, #52C96E 50%, #7DD98A 100%)' }}
             onClick={() => navigate('/opportunities')}
           >
-            <div className="absolute inset-0 pointer-events-none"
+            <div
+              className="absolute inset-0 pointer-events-none"
               style={{ background: 'radial-gradient(ellipse at 80% 20%, rgba(242,193,46,0.18) 0%, transparent 60%)' }}
             />
             <div className="relative">
@@ -374,12 +530,15 @@ function SplitCards() {
 
           {/* Welfare */}
           <div
-            className="rounded-3xl p-8 border border-[#D9EBD9] relative overflow-hidden cursor-pointer group bg-white"
+            className="rounded-3xl p-8 border border-cream-dark relative overflow-hidden cursor-pointer group bg-white"
             onClick={() => navigate('/welfare')}
           >
             <div
               className="absolute top-0 right-0 w-48 h-48 rounded-full pointer-events-none"
-              style={{ background: 'radial-gradient(circle, rgba(239,68,68,0.07) 0%, transparent 70%)', transform: 'translate(30%, -30%)' }}
+              style={{
+                background: 'radial-gradient(circle, rgba(239,68,68,0.07) 0%, transparent 70%)',
+                transform: 'translate(30%, -30%)',
+              }}
             />
             <div
               className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
@@ -388,79 +547,42 @@ function SplitCards() {
               <Heart className="h-7 w-7 text-red-500" />
             </div>
             <h3 className="font-display text-2xl font-bold text-green-700 mb-3">PharmaCare Welfare</h3>
-            <p className="text-[#3D6647] text-sm leading-relaxed mb-6">
+            <p className="text-muted text-sm leading-relaxed mb-6">
               Report issues, request support, or submit confidential concerns. We are here for you — always.
             </p>
             <Button variant="primary" size="md">Get Support →</Button>
           </div>
+
         </div>
       </div>
     </section>
   )
 }
 
-// ── Latest news ───────────────────────────────────────────────────────────────
-
-function LatestNews() {
-  const navigate = useNavigate()
-  const { data, isLoading } = useQuery({
-    queryKey: ['news', 'home'],
-    queryFn: () => newsApi.list({ limit: 3 }),
-  })
-
-  return (
-    <section className="section-padding">
-      <div className="section-container">
-        <SectionHeader
-          title="News & Announcements"
-          subtitle="Official updates from GPSA-UDS"
-          action={
-            <Button variant="ghost" size="sm" onClick={() => navigate('/news')} rightIcon={<ArrowRight className="h-4 w-4" />}>
-              All News
-            </Button>
-          }
-        />
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => <CardSkeleton key={i} />)}
-          </div>
-        ) : !data?.items.length ? (
-          <EmptyState icon="📰" title="No news yet" />
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.items.map((p) => (
-              <NewsCard key={p.id} post={p} onClick={() => navigate(`/news/${p.id}`)} />
-            ))}
-          </div>
-        )}
-      </div>
-    </section>
-  )
-}
-
-// ── Student voice CTA ─────────────────────────────────────────────────────────
+// ── Student voice CTA ──────────────────────────────────────────────────────────
 
 function StudentVoice() {
   const navigate = useNavigate()
   return (
-    <section className="section-padding bg-[#EDF4EE]">
+    <section className="section-padding bg-cream-dark">
       <div className="section-container">
-        <div
-          className="rounded-3xl p-10 lg:p-14 text-center max-w-2xl mx-auto relative overflow-hidden"
-          style={{ background: 'linear-gradient(135deg, #f0faf2 0%, #dcf5e3 100%)', border: '1px solid #b5eac2' }}
-        >
+        <div className="rounded-3xl p-10 lg:p-14 text-center max-w-2xl mx-auto relative overflow-hidden bg-cream-dark border border-cream-dark">
           <div
             className="absolute inset-0 pointer-events-none"
-            style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(77,184,80,0.15) 0%, transparent 60%)' }}
+            style={{
+              background: 'radial-gradient(ellipse at 50% 0%, rgba(77,184,80,0.15) 0%, transparent 60%)',
+            }}
           />
           <span className="text-4xl mb-5 block relative">🗣️</span>
-          <h3 className="font-display text-3xl font-bold text-green-700 mb-3 relative">Have Something to Say?</h3>
-          <p className="text-[#3D6647] text-base mb-7 max-w-md mx-auto relative">
+          <h3 className="font-display text-3xl font-bold text-green-700 mb-3 relative">
+            Have Something to Say?
+          </h3>
+          <p className="text-green-600 text-base mb-7 max-w-md mx-auto relative">
             Your voice shapes the decisions we make. Submit a suggestion, report an issue,
             or request support — confidentially if you prefer.
           </p>
           <Button variant="primary" size="lg" onClick={() => navigate('/welfare')}>
-            Reach Out to PharmaCare
+            Reach Out to Us
           </Button>
         </div>
       </div>
@@ -468,16 +590,312 @@ function StudentVoice() {
   )
 }
 
-// ── Page ──────────────────────────────────────────────────────────────────────
+// ── Word from the President ────────────────────────────────────────────────────
+
+function WordFromPresident() {
+  return (
+    <section className="section-padding overflow-hidden">
+      <div className="section-container">
+        <SectionHeader title="Word from the President" />
+
+        <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] rounded-3xl overflow-hidden shadow-card-lg">
+
+            {/* ── Left panel: identity ── */}
+            <div
+              className="relative flex flex-col items-center justify-center gap-0 px-8 py-10 lg:py-12"
+              style={{ background: 'linear-gradient(160deg, #1B3D22 0%, #2d6840 100%)' }}
+            >
+              {/* Subtle pattern overlay */}
+              <div
+                className="absolute inset-0 pointer-events-none opacity-[0.04]"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Ccircle cx='20' cy='20' r='1.5'/%3E%3C/g%3E%3C/svg%3E")`,
+                }}
+              />
+              <div className="relative z-10 flex flex-col items-center text-center">
+                {/*
+                  Photo placeholder — swap the inner <div> for:
+                  <img src={presidentPhoto} alt="President Name" className="w-full h-full object-cover object-top" />
+                */}
+                <div
+                  className="w-28 h-28 lg:w-36 lg:h-36 rounded-2xl overflow-hidden mb-5 flex-shrink-0"
+                  style={{
+                    border: '3px solid rgba(60,181,89,0.5)',
+                    boxShadow: '0 0 0 6px rgba(60,181,89,0.10)',
+                  }}
+                >
+                  <div
+                    className="w-full h-full flex flex-col items-center justify-end pb-3"
+                    style={{ background: 'linear-gradient(160deg, #2d6840 0%, #1B3D22 100%)' }}
+                  >
+                    {/* Silhouette — replace with <img> */}
+                    <svg viewBox="0 0 80 80" className="w-20 h-20 opacity-30" fill="white" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="40" cy="28" r="16" />
+                      <ellipse cx="40" cy="72" rx="28" ry="20" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Gold accent rule */}
+                <div
+                  className="w-8 h-0.5 rounded-full mb-3"
+                  style={{ background: 'linear-gradient(90deg, #F2C12E, #f5cf55)' }}
+                />
+
+                {/* Name — replace placeholder */}
+                <p className="font-display font-bold text-white text-base lg:text-lg leading-tight mb-1">
+                  {/* Replace: President Full Name */}
+                  President Name
+                </p>
+                <p className="text-xs font-500 uppercase tracking-widest" style={{ color: '#7DD98A' }}>
+                  President, GPSA-UDS
+                </p>
+                <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.38)' }}>
+                  2024 / 2025 Executive
+                </p>
+              </div>
+            </div>
+
+            {/* ── Right panel: quote ── */}
+            <div
+              className="relative flex flex-col justify-center px-8 py-10 lg:px-12 lg:py-12"
+              style={{
+                background: 'linear-gradient(135deg, #f4fbf6 0%, #eef7f1 100%)',
+                borderTop: '1px solid #d1ead8',
+                borderRight: '1px solid #d1ead8',
+                borderBottom: '1px solid #d1ead8',
+              }}
+            >
+              {/* Faint gold glow top-right */}
+              <div
+                className="absolute top-0 right-0 w-56 h-56 pointer-events-none"
+                style={{
+                  background: 'radial-gradient(ellipse at 90% 10%, rgba(242,193,46,0.12) 0%, transparent 65%)',
+                }}
+              />
+
+              {/* Large decorative quotation mark */}
+              <span
+                className="font-display font-bold select-none block leading-none mb-2"
+                style={{
+                  fontSize: 'clamp(4rem, 10vw, 7rem)',
+                  color: '#3CB559',
+                  opacity: 0.15,
+                  lineHeight: 0.8,
+                }}
+              >
+                &ldquo;
+              </span>
+
+              <blockquote
+                className="font-body leading-relaxed relative z-10"
+                style={{
+                  fontSize: 'clamp(1rem, 2.2vw, 1.25rem)',
+                  color: '#1B3D22',
+                  fontStyle: 'italic',
+                  fontWeight: 500,
+                  letterSpacing: '-0.01em',
+                }}
+              >
+                {/* Replace with actual quote */}
+                Together, we are building a stronger, more united pharmacy community — one that
+                uplifts every student and champions excellence in all we do.
+              </blockquote>
+
+              {/* Closing mark + rule */}
+              <div className="flex items-center gap-4 mt-7 relative z-10">
+                <div
+                  className="h-px flex-1 max-w-[48px] rounded-full"
+                  style={{ background: '#3CB559', opacity: 0.4 }}
+                />
+                <p className="text-xs font-700 uppercase tracking-widest" style={{ color: '#3CB559' }}>
+                  GPSA-UDS · 2024–2025
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ── Gallery teaser ─────────────────────────────────────────────────────────────
+
+/**
+ * GALLERY TILES — replace `gradient` / `accentColor` with actual <img> tags
+ * once you have real event photos:
+ *
+ *   <img src={tile.img} alt={tile.label}
+ *        className="w-full h-full object-cover object-center
+ *                   group-hover:scale-105 transition-transform duration-500" />
+ *
+ * Keep the overlay <div> so the label stays readable over photos.
+ */
+const GALLERY_TILES = [
+  {
+    label: 'Graduation Ceremony',
+    category: 'Events',
+    gradient: 'linear-gradient(145deg, #1B3D22 0%, #2d6840 60%, #3CB559 100%)',
+    accentColor: '#7DD98A',
+    span: 'md:col-span-2 md:row-span-2',
+    height: 'h-[220px] md:h-auto',
+  },
+  {
+    label: 'Health Week',
+    category: 'Welfare',
+    gradient: 'linear-gradient(145deg, #7a4a00 0%, #C8991A 100%)',
+    accentColor: '#F2C12E',
+    span: '',
+    height: 'h-[140px]',
+  },
+  {
+    label: 'Academic Symposium',
+    category: 'Academic',
+    gradient: 'linear-gradient(145deg, #0c3347 0%, #185FA5 100%)',
+    accentColor: '#85B7EB',
+    span: '',
+    height: 'h-[140px]',
+  },
+  {
+    label: 'Community Outreach',
+    category: 'Outreach',
+    gradient: 'linear-gradient(145deg, #1B3D22 0%, #3a8050 100%)',
+    accentColor: '#5fa874',
+    span: '',
+    height: 'h-[140px]',
+  },
+  {
+    label: 'Awards Night',
+    category: 'Events',
+    gradient: 'linear-gradient(145deg, #4a1600 0%, #993c1d 100%)',
+    accentColor: '#F09575',
+    span: '',
+    height: 'h-[140px]',
+  },
+]
+
+function GalleryTeaser() {
+  const navigate = useNavigate()
+  return (
+    <section className="section-padding" style={{ background: '#f4f7f4' }}>
+      <div className="section-container">
+        <SectionHeader
+          title="Gallery"
+          subtitle="Moments from our events and activities"
+          action={
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => navigate('/gallery')}
+              rightIcon={<ArrowRight className="h-4 w-4" />}
+            >
+              View All
+            </Button>
+          }
+        />
+
+        {/* Bento grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-3 md:h-[320px]">
+          {GALLERY_TILES.map(({ label, category, gradient, accentColor, span, height }) => (
+            <div
+              key={label}
+              onClick={() => navigate('/gallery')}
+              className={cn(
+                span,
+                height,
+                'relative rounded-2xl overflow-hidden cursor-pointer group',
+              )}
+              style={{ background: gradient }}
+            >
+              {/*
+                ── When you have real photos, replace this <div> with an <img>:
+                <img src={photoUrl} alt={label}
+                     className="absolute inset-0 w-full h-full object-cover
+                                group-hover:scale-105 transition-transform duration-500" />
+              ──────────────────────────────────────────────────────────────── */}
+
+              {/* Subtle texture overlay */}
+              <div
+                className="absolute inset-0 opacity-[0.06]"
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h32v32H0z' fill='none'/%3E%3Ccircle cx='8' cy='8' r='1' fill='white'/%3E%3Ccircle cx='24' cy='8' r='1' fill='white'/%3E%3Ccircle cx='8' cy='24' r='1' fill='white'/%3E%3Ccircle cx='24' cy='24' r='1' fill='white'/%3E%3C/svg%3E")`,
+                }}
+              />
+
+              {/* Bottom-to-top fade so text is always legible over photos */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.05) 55%, transparent 100%)',
+                }}
+              />
+
+              {/* Hover reveal: subtle brightness lift */}
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: 'rgba(255,255,255,0.06)' }}
+              />
+
+              {/* Category pill — top left */}
+              <div className="absolute top-3 left-3 z-10">
+                <span
+                  className="inline-block text-[10px] font-700 uppercase tracking-widest px-2 py-0.5 rounded-full"
+                  style={{
+                    background: 'rgba(255,255,255,0.15)',
+                    color: accentColor,
+                    backdropFilter: 'blur(4px)',
+                    border: `1px solid ${accentColor}33`,
+                  }}
+                >
+                  {category}
+                </span>
+              </div>
+
+              {/* Arrow — top right, appears on hover */}
+              <div
+                className="absolute top-3 right-3 z-10 w-7 h-7 rounded-full flex items-center justify-center
+                           opacity-0 group-hover:opacity-100 translate-x-1 group-hover:translate-x-0
+                           transition-all duration-200"
+                style={{ background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(4px)' }}
+              >
+                <ArrowRight className="h-3.5 w-3.5 text-white" />
+              </div>
+
+              {/* Label — bottom left */}
+              <div className="absolute bottom-0 left-0 right-0 p-3.5 z-10">
+                <p className="text-white font-700 text-sm leading-snug drop-shadow-sm">
+                  {label}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-center text-xs text-muted mt-5">
+          Photos will appear here once uploaded —{' '}
+          <span className="font-600 text-green-700 cursor-pointer hover:underline" onClick={() => navigate('/gallery')}>
+            visit the Gallery
+          </span>
+        </p>
+      </div>
+    </section>
+  )
+}
+
+// ── Page assembly ──────────────────────────────────────────────────────────────
 
 export function HomePage() {
   return (
     <>
       <Hero />
       <QuickActions />
+      <WordFromPresident />
       <UpcomingEvents />
       <SplitCards />
-      <LatestNews />
+      <GalleryTeaser />
       <StudentVoice />
     </>
   )

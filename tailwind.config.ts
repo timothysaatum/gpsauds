@@ -1,16 +1,18 @@
 import type { Config } from 'tailwindcss'
 
 // ─────────────────────────────────────────────────────────────────────────────
-// GPSA-UDS Design Tokens
-// Primary palette from brand reference screenshot
+// GPSA-UDS Design Tokens  
+// Palette: bright fresh greens matching the logo and bolt.host reference
 //
-//  green-500  #3CB559  ← primary brand green (hero, buttons, nav)
-//  green-400  #52C96E  ← mid green
-//  green-300  #7DD98A  ← mint highlight (gradient end, hover accents)
-//  green-600  #2A9144  ← darker for hover/active
-//  green-700  #1E7034  ← deep text green
-//  gold-400   #F2C12E  ← logo gold (CTA, dividers, accents)
-//  cream      #F7FAF7  ← green-tinted page background
+//  Primary:   #3CB559  (logo ring green — bright, fresh)
+//  Mint:      #7DD98A  (gradient light end — screenshot hero right side)
+//  Mid:       #52C96E  (between primary and mint)
+//  Hover:     #2A9144  (slightly darker for hover only)
+//  Text deep: #1B3D22  (dark green for headings — NOT blackish)
+//  Gold:      #F2C12E  (logo outer ring)
+//
+//  KEY RULE: green-700 = #3CB559 (PRIMARY) so all existing green-700 
+//  classes automatically use the bright brand green
 // ─────────────────────────────────────────────────────────────────────────────
 
 export default {
@@ -23,13 +25,13 @@ export default {
           50:  '#f0faf2',
           100: '#dcf5e3',
           200: '#b5eac2',
-          300: '#7DD98A',
-          400: '#52C96E',
-          500: '#3CB559',
-          600: '#2A9144',
-          700: '#1E7034',
-          800: '#14522A',
-          900: '#0b3019',
+          300: '#7DD98A',   // mint — gradient light end
+          400: '#52C96E',   // mid green
+          500: '#3CB559',   // primary brand green
+          600: '#2A9144',   // hover / active (slightly darker)
+          700: '#3CB559',   // ← SAME AS PRIMARY so green-700 = bright green
+          800: '#1B3D22',   // deep — used only for headings/dark text
+          900: '#0f2415',
         },
         gold: {
           DEFAULT: '#F2C12E',
@@ -37,7 +39,7 @@ export default {
           100: '#fef3c7',
           200: '#fde68a',
           300: '#F5D060',
-          400: '#F2C12E',
+          400: '#F2C12E',   // exact logo gold
           500: '#D4A017',
           600: '#A87C0F',
           700: '#7C5A09',
@@ -71,7 +73,8 @@ export default {
       },
       backgroundImage: {
         'hero-pattern': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
-        'brand-gradient':   'linear-gradient(135deg, #1E7034 0%, #3CB559 55%, #7DD98A 100%)',
+        // The hero gradient exactly matching the screenshot
+        'brand-gradient':   'linear-gradient(135deg, #3CB559 0%, #52C96E 50%, #7DD98A 100%)',
         'brand-gradient-h': 'linear-gradient(90deg, #3CB559 0%, #7DD98A 100%)',
       },
       animation: {

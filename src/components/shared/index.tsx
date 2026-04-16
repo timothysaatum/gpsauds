@@ -65,10 +65,10 @@ function DeadlineBadge({ deadline }: { deadline: string }) {
 // ── Event card ────────────────────────────────────────────────────────────────
 
 const EVENT_BG: Record<string, string> = {
-  academic:   'bg-blue-50',
-  welfare:    'bg-red-50',
+  academic:   'bg-green-50',
+  welfare:    'bg-gold-50',
   outreach:   'bg-green-50',
-  social:     'bg-purple-50',
+  social:     'bg-cream-dark',
   conference: 'bg-gold-50',
 }
 
@@ -89,7 +89,7 @@ export function EventCard({ event, onRegister }: EventCardProps) {
       className="overflow-hidden flex flex-col"
     >
       {/* Banner */}
-      <div className={cn('h-32 flex items-center justify-center text-5xl', EVENT_BG[event.event_type] ?? 'bg-[#f0ece0]')}>
+      <div className={cn('h-32 flex items-center justify-center text-5xl', EVENT_BG[event.event_type] ?? 'bg-cream-dark')}>
         {event.banner_emoji ?? '📅'}
       </div>
 
@@ -101,16 +101,16 @@ export function EventCard({ event, onRegister }: EventCardProps) {
           {event.is_featured && <Badge variant="gold">⭐ Featured</Badge>}
         </div>
 
-        <h3 className="font-body font-700 text-[#1c2b22] leading-snug line-clamp-2">
+        <h3 className="font-body font-700 text-deep leading-snug line-clamp-2">
           {event.title}
         </h3>
 
         <div className="space-y-1.5">
-          <p className="flex items-center gap-1.5 text-xs text-[#5a7060]">
+          <p className="flex items-center gap-1.5 text-xs text-muted">
             <Calendar className="h-3.5 w-3.5 flex-shrink-0" />
             {formatDateTime(event.start_datetime)}
           </p>
-          <p className="flex items-center gap-1.5 text-xs text-[#5a7060]">
+          <p className="flex items-center gap-1.5 text-xs text-muted">
             <MapPin className="h-3.5 w-3.5 flex-shrink-0" />
             <span className="truncate">{event.location}</span>
           </p>
@@ -151,7 +151,7 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
             <Badge variant="green" className="mb-2">
               {OPP_TYPE_LABELS[opportunity.opp_type]}
             </Badge>
-            <h3 className="font-body font-700 text-[#1c2b22] leading-snug line-clamp-2">
+            <h3 className="font-body font-700 text-deep leading-snug line-clamp-2">
               {opportunity.title}
             </h3>
           </div>
@@ -160,9 +160,9 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
           )}
         </div>
 
-        <p className="text-sm text-[#5a7060] font-500">🏢 {opportunity.organization}</p>
+        <p className="text-sm text-muted font-500">🏢 {opportunity.organization}</p>
 
-        <p className="text-sm text-[#5a7060] line-clamp-2 leading-relaxed">
+        <p className="text-sm text-muted line-clamp-2 leading-relaxed">
           {opportunity.description}
         </p>
 
@@ -173,12 +173,12 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
           </p>
         )}
 
-        <div className="flex items-center justify-between mt-auto pt-2 border-t border-[#f0ece0]">
+        <div className="flex items-center justify-between mt-auto pt-2 border-t border-cream-dark">
           <div>
-            <p className="text-[10px] text-[#5a7060] uppercase tracking-wide font-700 mb-1">Deadline</p>
+            <p className="text-[10px] text-muted uppercase tracking-wide font-700 mb-1">Deadline</p>
             <DeadlineBadge deadline={opportunity.deadline} />
           </div>
-          <p className="text-xs text-[#5a7060]">{formatDate(opportunity.deadline)}</p>
+          <p className="text-xs text-muted">{formatDate(opportunity.deadline)}</p>
         </div>
       </div>
 
@@ -202,12 +202,12 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
 // ── News card ─────────────────────────────────────────────────────────────────
 
 const NEWS_BG: Record<string, string> = {
-  announcement:   'bg-red-50',
-  academic_update:'bg-blue-50',
+  announcement:   'bg-gold-50',
+  academic_update:'bg-green-50',
   welfare_update: 'bg-green-50',
-  events_recap:   'bg-purple-50',
+  events_recap:   'bg-cream-dark',
   opportunities:  'bg-gold-50',
-  general:        'bg-[#f0ece0]',
+  general:        'bg-cream-dark',
 }
 
 interface NewsCardProps {
@@ -218,7 +218,7 @@ interface NewsCardProps {
 export function NewsCard({ post, onClick }: NewsCardProps) {
   return (
     <Card hover padding="none" onClick={onClick} className="overflow-hidden flex flex-col">
-      <div className={cn('h-40 flex items-center justify-center text-6xl', NEWS_BG[post.category] ?? 'bg-[#f0ece0]')}>
+      <div className={cn('h-40 flex items-center justify-center text-6xl', NEWS_BG[post.category] ?? 'bg-cream-dark')}>
         {post.banner_emoji ?? '📰'}
       </div>
 
@@ -228,17 +228,17 @@ export function NewsCard({ post, onClick }: NewsCardProps) {
           {post.is_urgent && <Badge variant="red">🔴 Urgent</Badge>}
         </div>
 
-        <h3 className="font-body font-700 text-[#1c2b22] leading-snug line-clamp-2">
+        <h3 className="font-body font-700 text-deep leading-snug line-clamp-2">
           {post.title}
         </h3>
 
-        <p className="text-sm text-[#5a7060] line-clamp-3 leading-relaxed">
+        <p className="text-sm text-muted line-clamp-3 leading-relaxed">
           {post.summary}
         </p>
 
         <div className="flex items-center justify-between mt-auto pt-2">
           {post.published_at && (
-            <span className="text-xs text-[#5a7060]">{formatDate(post.published_at)}</span>
+            <span className="text-xs text-muted">{formatDate(post.published_at)}</span>
           )}
           <span className="text-xs font-700 text-green-700 flex items-center gap-1">
             Read More <ArrowRight className="h-3 w-3" />
@@ -269,7 +269,7 @@ export function FilterBar<T extends string>({ options, value, onChange, classNam
             'px-4 py-2 rounded-xl text-sm font-600 font-body border transition-all duration-150',
             value === opt.value
               ? 'bg-green-700 text-white border-green-700 shadow-card'
-              : 'bg-white text-[#5a7060] border-[#e4ddd1] hover:border-green-300 hover:text-green-700'
+              : 'bg-white text-muted border-cream-dark hover:border-green-300 hover:text-green-700'
           )}
         >
           {opt.label}
@@ -293,7 +293,7 @@ export function StarRating({ value, max = 5 }: { value: number; max?: number }) 
           )}
         />
       ))}
-      <span className="ml-1 text-xs text-[#5a7060] font-500">({value.toFixed(1)})</span>
+      <span className="ml-1 text-xs text-muted font-500">({value.toFixed(1)})</span>
     </div>
   )
 }
