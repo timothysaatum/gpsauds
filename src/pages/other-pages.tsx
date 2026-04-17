@@ -11,6 +11,14 @@ import {
   AlertCircle, CheckCircle, ExternalLink, Search, Bell, BellOff, ChevronRight} from 'lucide-react'
 import { welfareApi, opportunitiesApi, newsApi, notificationsApi } from '@/api/services'
 import { extractError } from '@/api/client'
+
+// Import more detailed pages from dedicated files. These will replace
+// the simplified placeholders defined later in this file. When the
+// router imports `AboutPage` or `GalleryPage` from `other-pages.tsx`, it
+// will instead use the richer implementations from `AboutPage.tsx` and
+// `GalleryPage.tsx`.
+import { AboutPage as DetailedAboutPage } from './AboutPage'
+import { GalleryPage as DetailedGalleryPage } from './GalleryPage'
 import { useAuthStore } from '@/store/authStore'
 import { Button, Badge, CardSkeleton, EmptyState, Skeleton } from '@/components/ui'
 import { FilterBar, PageHeader, NewsCard, OpportunityCard } from '@/components/shared'
@@ -96,7 +104,7 @@ export function WelfarePage() {
 
   return (
     <>
-      <PageHeader title="PharmaCare" subtitle="Your wellbeing matters. Reach out, report, or request support — we are here." />
+      <PageHeader title="GPSA-UDS" subtitle="Your wellbeing matters. Reach out, report, or request support — we are here." />
 
       <div className="section-container section-padding">
         {/* Action cards */}
@@ -814,7 +822,8 @@ export function NotificationsPage() {
 }
 // ── About Page ────────────────────────────────────────────────────────────────
 
-export function AboutPage() {
+// Renamed to avoid collision with the detailed AboutPage imported above.
+function OtherAboutPage() {
   return (
     <>
       <PageHeader
@@ -859,7 +868,7 @@ export function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { emoji: '📚', title: 'Academics', desc: 'We provide study resources, past questions, lecture notes, and academic support to help students excel in their studies.' },
-              { emoji: '❤️', title: 'Welfare', desc: 'Our PharmaCare team ensures every student has access to support — whether academic, financial, health-related, or personal.' },
+              { emoji: '❤️', title: 'Welfare', desc: 'Our GPSA-UDS Welfare team ensures every student has access to support — whether academic, financial, health-related, or personal.' },
               { emoji: '💼', title: 'Opportunities', desc: 'We connect pharmacy students with internships, scholarships, research programmes, and career development resources.' },
             ].map(({ emoji, title, desc }) => (
               <div key={title} className="card p-7">
@@ -961,7 +970,8 @@ const GALLERY_CATEGORIES = [
   { value: 'social',   label: 'Social' },
 ]
 
-export function GalleryPage() {
+// Renamed to avoid collision with the detailed GalleryPage imported above.
+function OtherGalleryPage() {
   const [filter, setFilter] = useState<string>('all')
   const [lightbox, setLightbox] = useState<typeof GALLERY_ITEMS[number] | null>(null)
 
@@ -1038,3 +1048,10 @@ export function GalleryPage() {
     </>
   )
 }
+
+// ── Export detailed pages ───────────────────────────────────────────────────
+// Re-export the detailed implementations imported at the top so that
+// consumers of this module get the full-featured pages rather than the
+// simplified placeholders. The placeholders remain defined above for
+// reference but are not exported.
+export { DetailedAboutPage as AboutPage, DetailedGalleryPage as GalleryPage }

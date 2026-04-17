@@ -16,7 +16,8 @@ import { AcademicsPage } from '@/pages/Academics'
 import { EventsPage, EventDetailPage } from '@/pages/Events'
 import {
   WelfarePage, OpportunitiesPage, NewsPage, NewsDetailPage,
-  NotificationsPage
+  NotificationsPage,
+  AboutPage, GalleryPage
 } from '@/pages/other-pages'
 import {
   ProfilePage, CertificatesPage, CertificateVerifyPage, SettingsPage
@@ -96,6 +97,9 @@ export default function App() {
               <Route path="academics" element={<AcademicsPage />} />
               <Route path="events" element={<EventsPage />} />
               <Route path="events/:id" element={<EventDetailPage />} />
+              {/* New standalone pages */}
+              <Route path="about" element={<AboutPage />} />
+              <Route path="gallery" element={<GalleryPage />} />
               <Route path="welfare" element={<WelfarePage />} />
               <Route path="opportunities" element={<OpportunitiesPage />} />
               <Route path="news" element={<NewsPage />} />

@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import {
   Menu, X, Bell, ChevronDown, LogOut, User, Settings,
-  BookOpen, Calendar, Heart, Briefcase, Newspaper, Award
+  BookOpen, Calendar, Heart, Briefcase, Newspaper, Award,
+  Info, Image
 } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { notificationsApi } from '@/api/services'
@@ -16,6 +17,9 @@ import { cn, initials } from '@/utils'
 
 const NAV_LINKS = [
   { to: '/',             label: 'Home',          exact: true },
+  // Added About and Gallery pages
+  { to: '/about',       label: 'About',         icon: Info },
+  { to: '/gallery',     label: 'Gallery',       icon: Image },
   { to: '/academics',    label: 'Academics',     icon: BookOpen },
   { to: '/events',       label: 'Events',        icon: Calendar },
   { to: '/welfare',      label: 'Welfare',       icon: Heart },
@@ -252,7 +256,7 @@ export function Footer() {
     Platform: [
       { label: 'Academics Hub', to: '/academics' },
       { label: 'Events', to: '/events' },
-      { label: 'PharmaCare Welfare', to: '/welfare' },
+      { label: 'GPSA-UDS Welfare', to: '/welfare' },
       { label: 'Opportunities', to: '/opportunities' },
       { label: 'News & Announcements', to: '/news' },
     ],

@@ -62,7 +62,7 @@ npm run type-check   # tsc --noEmit
 | `/academics` | Academics Hub | Public |
 | `/events` | Events list | Public |
 | `/events/:id` | Event detail | Public |
-| `/welfare` | PharmaCare | Public |
+| `/welfare` | Public |
 | `/opportunities` | Opportunities Hub | Public |
 | `/news` | News list | Public |
 | `/news/:id` | News detail | Public |

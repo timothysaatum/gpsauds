@@ -21,7 +21,7 @@ const DEFAULTS = [
   'Welcome to the GPSA-UDS Student Portal',
   'Check the Academics Hub for new resources',
   'Upcoming events — register now before spots fill up',
-  'PharmaCare Welfare is available to all students',
+  'GPSA-UDS Welfare is available to all students',
 ]
 
 interface AnnouncementStripProps {
