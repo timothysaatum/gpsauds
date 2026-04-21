@@ -604,42 +604,6 @@ export function NotificationsPage() {
   )
 }
 // ── About Page ────────────────────────────────────────────────────────────────
-
-
-// ── Gallery Page ──────────────────────────────────────────────────────────────
-
-const GALLERY_ITEMS = [
-  { id: 1,  emoji: '🎓', label: 'Graduation Ceremony 2024',   category: 'events' },
-  { id: 2,  emoji: '🏥', label: 'Health Week 2024',           category: 'health' },
-  { id: 3,  emoji: '📚', label: 'Academic Symposium',         category: 'academic' },
-  { id: 4,  emoji: '🤝', label: 'Community Outreach',         category: 'outreach' },
-  { id: 5,  emoji: '🎤', label: 'Public Speaking Contest',    category: 'events' },
-  { id: 6,  emoji: '🌿', label: 'Field Trip – Herbarium',     category: 'academic' },
-  { id: 7,  emoji: '⚽', label: 'Inter-Level Sports Day',     category: 'social' },
-  { id: 8,  emoji: '🍽️', label: 'End-of-Year Dinner',        category: 'social' },
-  { id: 9,  emoji: '🔬', label: 'Lab Skills Workshop',        category: 'academic' },
-  { id: 10, emoji: '📣', label: 'GPSA Induction Ceremony',    category: 'events' },
-  { id: 11, emoji: '💊', label: 'Drug Awareness Campaign',    category: 'health' },
-  { id: 12, emoji: '🤲', label: 'Blood Donation Drive',       category: 'outreach' },
-]
-
-const GALLERY_BG: Record<string, string> = {
-  events:   'bg-green-50',
-  health:   'bg-gold-50',
-  academic: 'bg-cream-dark',
-  outreach: 'bg-green-50',
-  social:   'bg-gold-50',
-}
-
-const GALLERY_CATEGORIES = [
-  { value: 'all',      label: 'All' },
-  { value: 'events',   label: 'Events' },
-  { value: 'academic', label: 'Academic' },
-  { value: 'health',   label: 'Health' },
-  { value: 'outreach', label: 'Outreach' },
-  { value: 'social',   label: 'Social' },
-]
-
 // ── Export detailed pages ───────────────────────────────────────────────────
 // Re-export the detailed implementations imported at the top so that
 // consumers of this module get the full-featured pages rather than the
