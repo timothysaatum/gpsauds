@@ -6,12 +6,15 @@ import { eventsApi } from '@/api/services'
 import { Button, CardSkeleton, EmptyState, SectionHeader } from '@/components/ui'
 import { EventCard, CountdownBlock } from '@/components/shared'
 import { cn, formatDateTime } from '@/utils'
+import slide1 from '@/assets/KCP_4243.jpg'
+import slide2 from '@/assets/KCP_4248.jpg'
+import slide3 from '@/assets/KCP_4495.jpg'
 
 // ── Hero Carousel ─────────────────────────────────────────────────────────────
 
 const SLIDES = [
   {
-    img: '/src/assets/KCP_4243.jpg',
+    img: slide1,
     tag: 'Health Week 2025',
     heading: 'Welcome to',
     highlight: 'GPSA-UDS',
@@ -20,7 +23,7 @@ const SLIDES = [
     secondaryButton: { label: 'Register for Events', path: '/events' },
   },
   {
-    img: '/src/assets/KCP_4248.jpg',
+    img: slide2,
     tag: 'Community & Events',
     heading: 'One Family,',
     highlight: 'One Vision',
@@ -29,7 +32,7 @@ const SLIDES = [
     secondaryButton: { label: 'Explore Academics', path: '/academics' },
   },
   {
-    img: '/src/assets/KCP_4495.jpg',
+    img: slide3,
     tag: 'GPSA-UDS Welfare',
     heading: 'Your Wellbeing,',
     highlight: 'Our Priority',
