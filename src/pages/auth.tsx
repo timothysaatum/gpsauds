@@ -176,9 +176,9 @@ const registerSchema = z.object({
     .min(8, 'At least 8 characters')
     .regex(/[A-Z]/, 'Must contain an uppercase letter')
     .regex(/[0-9]/, 'Must contain a digit'),
-  phone: z.string().optional(),
-  student_id: z.string().optional(),
-  level: z.string().optional(),
+  phone: z.string().min(1, 'Phone number is required'),
+  student_id: z.string().min(1, 'Student ID is required'),
+  level: z.string().min(1, 'Level is required'),
 })
 type RegisterForm = z.infer<typeof registerSchema>
 
@@ -243,23 +243,26 @@ export function RegisterPage() {
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-          <label className="form-label">Student ID <span className="text-muted font-normal">(optional)</span></label>
-            <input {...register('student_id')} placeholder="UDS/PHARM/…" className="form-input" />
+          <label className="form-label">Student ID</label>
+            <input {...register('student_id')} placeholder="UDS/PHARM/…" className={cn('form-input', errors.student_id && 'form-input-error')} />
+            {errors.student_id && <p className="form-error">{errors.student_id.message}</p>}
           </div>
           <div>
-          <label className="form-label">Level <span className="text-muted font-normal">(optional)</span></label>
-            <select {...register('level')} className="form-select">
+          <label className="form-label">Level</label>
+            <select {...register('level')} className={cn('form-select', errors.level && 'form-input-error')}>
               <option value="">Select…</option>
               {[100, 200, 300, 400, 500, 600].map((l) => (
                 <option key={l} value={l}>Level {l}</option>
               ))}
             </select>
+            {errors.level && <p className="form-error">{errors.level.message}</p>}
           </div>
         </div>
 
         <div>
-          <label className="form-label">Phone <span className="text-muted font-normal">(optional)</span></label>
-          <input {...register('phone')} placeholder="+233 XX XXX XXXX" className="form-input" />
+          <label className="form-label">Phone</label>
+          <input {...register('phone')} placeholder="+233 XX XXX XXXX" className={cn('form-input', errors.phone && 'form-input-error')} />
+          {errors.phone && <p className="form-error">{errors.phone.message}</p>}
         </div>
 
         <Button type="submit" variant="primary" size="lg" loading={mutation.isPending} className="w-full mt-2">

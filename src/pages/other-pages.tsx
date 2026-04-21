@@ -3,14 +3,10 @@
 // ─────────────────────────────────────────────────────────────────────────────
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { useNavigate, useParams } from 'react-router-dom'
 import {
-  AlertCircle, CheckCircle, ExternalLink, Search, Bell, BellOff, ChevronRight} from 'lucide-react'
-import { welfareApi, opportunitiesApi, newsApi, notificationsApi } from '@/api/services'
-import { extractError } from '@/api/client'
+  ExternalLink, Search, Bell, BellOff, ChevronRight} from 'lucide-react'
+import { opportunitiesApi, newsApi, notificationsApi } from '@/api/services'
 
 // Import more detailed pages from dedicated files. These will replace
 // the simplified placeholders defined later in this file. When the
@@ -19,228 +15,15 @@ import { extractError } from '@/api/client'
 // `GalleryPage.tsx`.
 import { AboutPage as DetailedAboutPage } from './AboutPage'
 import { GalleryPage as DetailedGalleryPage } from './GalleryPage'
+export { WelfarePage } from './WelfarePage'
 import { useAuthStore } from '@/store/authStore'
 import { Button, Badge, CardSkeleton, EmptyState, Skeleton } from '@/components/ui'
 import { FilterBar, PageHeader, NewsCard, OpportunityCard } from '@/components/shared'
 import {
   cn, formatDate, deadlineUrgency,
-  NEWS_CATEGORY_LABELS, relativeTime, capitalize,
+  NEWS_CATEGORY_LABELS, relativeTime,
 } from '@/utils'
-import type { ReportType, WelfareCategory, OpportunityType, NewsCategory } from '@/types'
-
-// ── Welfare ───────────────────────────────────────────────────────────────────
-
-const reportSchema = z.object({
-  report_type:  z.enum(['issue', 'support', 'confidential']),
-  category:     z.enum(['academic', 'welfare', 'financial', 'health', 'other']),
-  description:  z.string().min(10, 'Please describe your issue (min 10 characters)'),
-  is_anonymous: z.boolean(),
-  name:         z.string().optional(),
-  level:        z.string().optional(),
-  contact:      z.string().optional(),
-})
-type ReportForm = z.infer<typeof reportSchema>
-
-export function WelfarePage() {
-  const [activeCard, setActiveCard] = useState<ReportType | null>(null)
-  const [submitted, setSubmitted] = useState(false)
-
-  const { data: spotlight } = useQuery({
-    queryKey: ['welfare', 'spotlight'],
-    queryFn: welfareApi.getSpotlight,
-    staleTime: 5 * 60 * 1000,
-  })
-
-  const { register, handleSubmit, watch, setValue, formState: { errors }, reset } = useForm<ReportForm>({
-    resolver: zodResolver(reportSchema),
-    defaultValues: { is_anonymous: false, report_type: 'issue' },
-  })
-  const isAnonymous = watch('is_anonymous')
-
-  const mutation = useMutation({
-    mutationFn: (data: ReportForm) =>
-      welfareApi.submitReport({
-        ...data,
-        level: data.level ? parseInt(data.level) : undefined,
-      }),
-    onSuccess: () => { setSubmitted(true); reset() },
-  })
-
-  const handleCardClick = (type: ReportType) => {
-    setActiveCard(type)
-    setValue('report_type', type)
-    setSubmitted(false)
-  }
-
-  const CARDS = [
-    {
-      type: 'issue' as ReportType,
-      icon: '❤️',
-      title: 'Report an Issue',
-      desc: 'Academic concerns, lecturer issues, facility problems, or general complaints.',
-      cta: 'Report Now',
-      bg: 'bg-red-50 border-red-100',
-      btnVariant: 'destructive' as const,
-    },
-    {
-      type: 'support' as ReportType,
-      icon: '🧠',
-      title: 'Request Support',
-      desc: 'Personal struggles, financial difficulty, or academic pressure — we can help.',
-      cta: 'Get Help',
-      bg: 'bg-green-50 border-green-200',
-      btnVariant: 'primary' as const,
-    },
-    {
-      type: 'confidential' as ReportType,
-      icon: '🔒',
-      title: 'Confidential Report',
-      desc: 'Sensitive issues where your identity must remain fully protected and private.',
-      cta: 'Submit Confidentially',
-      bg: 'bg-purple-50 border-purple-100',
-      btnVariant: 'outline' as const,
-    },
-  ]
-
-  return (
-    <>
-      <PageHeader title="GPSA-UDS" subtitle="Your wellbeing matters. Reach out, report, or request support — we are here." />
-
-      <div className="section-container section-padding">
-        {/* Action cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {CARDS.map((c) => (
-            <div key={c.type} className={cn('card p-7 border flex flex-col gap-4', c.bg, activeCard === c.type && 'ring-2 ring-green-500')}>
-              <span className="text-4xl">{c.icon}</span>
-              <div>
-                <h3 className="font-body font-700 text-[#1B3D22] text-lg mb-1">{c.title}</h3>
-                <p className="text-sm text-muted leading-relaxed">{c.desc}</p>
-              </div>
-              <Button variant={c.btnVariant} size="md" className="mt-auto" onClick={() => handleCardClick(c.type)}>
-                {c.cta}
-              </Button>
-            </div>
-          ))}
-        </div>
-
-        {/* Form */}
-        {activeCard && (
-          <div className="max-w-xl mb-14">
-            <h2 className="font-display text-2xl font-bold text-green-700 mb-6">
-              {CARDS.find((c) => c.type === activeCard)?.title}
-            </h2>
-
-            {submitted ? (
-              <div className="card p-8 text-center">
-                <CheckCircle className="h-14 w-14 text-green-700 mx-auto mb-4" />
-                <h3 className="font-display text-xl font-bold text-green-700 mb-2">Report Received</h3>
-                <p className="text-sm text-muted">
-                  Your report has been received. Our team will follow up within 48 hours.
-                  All reports are handled with care and confidentiality.
-                </p>
-              </div>
-            ) : (
-              <div className="card p-8">
-                {mutation.error && (
-                  <div className="mb-5 flex items-center gap-2 bg-red-50 border border-red-200 rounded-xl p-3.5 text-sm text-red-600">
-                    <AlertCircle className="h-4 w-4 flex-shrink-0" />
-                    {extractError(mutation.error)}
-                  </div>
-                )}
-                <form onSubmit={handleSubmit((d) => mutation.mutate(d))} className="space-y-4">
-                  {activeCard !== 'confidential' && !isAnonymous && (
-                    <>
-                      <div>
-                        <label className="form-label">Full Name</label>
-                        <input {...register('name')} className="form-input" placeholder="Your name" />
-                      </div>
-                      <div className="grid grid-cols-2 gap-3">
-                        <div>
-                          <label className="form-label">Level</label>
-                          <select {...register('level')} className="form-select">
-                            <option value="">Select…</option>
-                            {[100,200,300,400,500,600].map((l) => <option key={l} value={l}>Level {l}</option>)}
-                          </select>
-                        </div>
-                        <div>
-                          <label className="form-label">Contact</label>
-                          <input {...register('contact')} className="form-input" placeholder="Email or phone (optional)" />
-                        </div>
-                      </div>
-                    </>
-                  )}
-
-                  <div>
-                    <label className="form-label">Category</label>
-                    <select {...register('category')} className={cn('form-select', errors.category && 'form-input-error')}>
-                      <option value="">Select a category…</option>
-                      {(['academic','welfare','financial','health','other'] as WelfareCategory[]).map((c) => (
-                        <option key={c} value={c}>{capitalize(c)}</option>
-                      ))}
-                    </select>
-                    {errors.category && <p className="form-error">{errors.category.message}</p>}
-                  </div>
-
-                  <div>
-                    <label className="form-label">Description *</label>
-                    <textarea
-                      {...register('description')}
-                      className={cn('form-input resize-none h-28', errors.description && 'form-input-error')}
-                      placeholder="Describe your issue or request in detail…"
-                    />
-                    {errors.description && <p className="form-error">{errors.description.message}</p>}
-                  </div>
-
-                  {activeCard !== 'confidential' && (
-                    <label className="flex items-center gap-3 cursor-pointer select-none">
-                      <div
-                        onClick={() => setValue('is_anonymous', !isAnonymous)}
-                        className={cn(
-                          'w-5 h-5 rounded flex items-center justify-center border-2 transition-all flex-shrink-0',
-                          isAnonymous ? 'bg-green-700 border-green-500' : 'border-cream-dark bg-white'
-                        )}
-                      >
-                        {isAnonymous && <span className="text-white text-xs">✓</span>}
-                      </div>
-                      <span className="text-sm font-500 text-[#1B3D22]">Submit Anonymously</span>
-                    </label>
-                  )}
-
-                  <Button type="submit" variant="primary" size="lg" loading={mutation.isPending} className="w-full">
-                    Submit Report
-                  </Button>
-                </form>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Trust box */}
-        <div className="border-l-4 border-green-500 pl-6 bg-green-50 py-5 pr-6 rounded-r-2xl mb-8">
-          <p className="text-sm text-muted leading-relaxed italic">
-            "All reports are handled with care and confidentiality. Our Welfare Committee reviews every submission.
-            No concern is too small — your wellbeing is our priority."
-          </p>
-          <p className="mt-3 text-sm font-700 text-green-700">
-            🚨 Emergency? Contact the Welfare Officer directly: <span className="font-body">+233 XXX XXX XXX</span>
-          </p>
-        </div>
-
-        {/* Issue of the week */}
-        {spotlight && (
-          <div className="card bg-gold-50 border-gold-200 p-7 max-w-2xl">
-            <h3 className="font-body font-700 text-[#1B3D22] text-lg mb-3">📌 Issue of the Week</h3>
-            <p className="text-sm text-muted italic leading-relaxed mb-4">"{spotlight.summary}"</p>
-            <div className="border-t border-gold-200 pt-4">
-              <p className="text-xs font-700 text-gold-700 uppercase tracking-wide mb-1">Action Taken</p>
-              <p className="text-sm text-muted">{spotlight.action_taken}</p>
-            </div>
-          </div>
-        )}
-      </div>
-    </>
-  )
-}
+import type { OpportunityType, NewsCategory } from '@/types'
 
 // ── Opportunities ─────────────────────────────────────────────────────────────
 

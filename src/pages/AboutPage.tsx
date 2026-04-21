@@ -17,7 +17,7 @@
 import { useNavigate } from 'react-router-dom'
 import {
   BookOpen, Heart, Briefcase, Users,
-  Target, Eye, Award, ArrowRight,
+  Target, Eye, Award, ArrowRight, Zap,
 } from 'lucide-react'
 import { Button } from '@/components/ui'
 import { PageHeader } from '@/components/shared'
@@ -28,10 +28,10 @@ import { cn } from '@/utils'
 // ─────────────────────────────────────────────────────────────────────────────
 
 const STATS = [
-  { value: '600+', label: 'Active Members',   icon: Users  },
-  { value: '6',    label: 'Year Levels',       icon: BookOpen },
-  { value: '100+', label: 'Resources Shared',  icon: Award  },
-  { value: '10+',  label: 'Events Per Year',   icon: Target },
+  { value: '5,000+', label: 'Students Represented',   icon: Users  },
+  { value: '20+',    label: 'Core & Associates',       icon: BookOpen },
+  { value: '50+',    label: 'Events Per Year',         icon: Award  },
+  { value: '1',      label: 'United Force',            icon: Target },
 ]
 
 /**
@@ -53,10 +53,40 @@ const EXECUTIVES = [
 
 const TIMELINE = [
   { year: '2015', title: 'GPSA-UDS Founded', body: 'The Graduate Pharmacy Students Association was formally established at UDS to represent and empower pharmacy students.' },
-  { year: '2018', title: 'PharmaCare Welfare Launched', body: 'A dedicated welfare arm was created to handle student wellbeing, mental health support, and financial aid coordination.' },
+  { year: '2018', title: 'GPSA-UDS Welfare Launched', body: 'A dedicated welfare arm was created to handle student wellbeing, mental health support, and financial aid coordination.' },
   { year: '2021', title: 'Academic Hub Introduced', body: 'A centralised digital resource library was launched, making past questions, lecture notes, and lab reports accessible to all levels.' },
   { year: '2023', title: 'MOU with Tamale Teaching Hospital', body: 'GPSA-UDS formalised a partnership with the Tamale Teaching Hospital to provide structured clinical attachment for Level 400–600 students.' },
   { year: '2025', title: 'Student Portal Goes Live', body: 'A full-featured online portal was launched — enabling event registration, resource downloads, welfare reporting, and opportunity discovery.' },
+]
+
+const PRINCIPLES = [
+  {
+    icon: Target,
+    title: 'Our Mission',
+    desc: 'Empowering every pharmacy student to thrive academically, socially, and professionally.',
+    iconColor: '#fff',
+    iconBg: 'rgba(255,255,255,0.15)',
+    cardBg: 'linear-gradient(145deg, #1B3D22 0%, #2d6840 60%, #3CB559 100%)',
+    textColor: '#fff',
+  },
+  {
+    icon: Eye,
+    title: 'Our Vision',
+    desc: 'Ghana\'s most impactful pharmacy students\' body, known for excellence and community service.',
+    iconColor: '#fff',
+    iconBg: 'rgba(255,255,255,0.15)',
+    cardBg: 'linear-gradient(145deg, #2d6840 0%, #1B3D22 100%)',
+    textColor: '#fff',
+  },
+  {
+    icon: Zap,
+    title: 'Our Values',
+    desc: 'Integrity, accountability, student-centric, innovative, collaborative, and advocacy-driven.',
+    iconColor: '#fff',
+    iconBg: 'rgba(255,255,255,0.15)',
+    cardBg: 'linear-gradient(145deg, #1B3D22 0%, #2d6840 100%)',
+    textColor: '#fff',
+  },
 ]
 
 const PILLARS = [
@@ -71,7 +101,7 @@ const PILLARS = [
   {
     icon: Heart,
     title: 'Welfare',
-    desc: 'PharmaCare ensures every student has access to support — whether academic pressure, financial difficulty, health concerns, or personal struggles.',
+    desc: 'GPSA-UDS Welfare ensures every student has access to support — whether academic pressure, financial difficulty, health concerns, or personal struggles.',
     iconColor: '#e05252',
     iconBg: 'rgba(224,82,82,0.08)',
     border: 'hover:border-red-200',
@@ -97,6 +127,132 @@ const PILLARS = [
 // ─────────────────────────────────────────────────────────────────────────────
 // Sub-components
 // ─────────────────────────────────────────────────────────────────────────────
+
+function TeamIntroSection() {
+  return (
+    <section className="section-padding" style={{ background: '#f4f7f4' }}>
+      <div className="section-container">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Left: Team Photo */}
+          <div className="flex justify-center lg:justify-start">
+            <div className="relative w-full max-w-md">
+              <div
+                className="aspect-[3/4] rounded-3xl overflow-hidden shadow-lg"
+                style={{ background: 'linear-gradient(145deg, #e8f5e9 0%, #f1f8f6 100%)' }}
+              >
+                {/* Placeholder for team photo */}
+                <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300">
+                  <Users className="h-24 w-24 text-gray-400 mb-4" />
+                  <p className="text-sm text-gray-600 text-center px-6">Team photo coming soon</p>
+                </div>
+              </div>
+              {/* Accent decoration */}
+              <div
+                className="absolute -bottom-4 -right-4 w-32 h-32 rounded-full opacity-30 blur-3xl"
+                style={{ background: '#F2C12E' }}
+              />
+            </div>
+          </div>
+
+          {/* Right: Description */}
+          <div>
+            <p className="text-xs font-700 uppercase tracking-widest mb-3" style={{ color: '#3CB559' }}>
+              about the gpsa-uds
+            </p>
+            <h2
+              className="font-display font-bold leading-snug mb-4"
+              style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', color: '#1B3D22' }}
+            >
+              The official representation body of all students within the University of Medicine
+            </h2>
+            <p className="text-sm leading-relaxed text-muted mb-6">
+              GPSA-UDS is the official representative body of all students of the university within the University for Development Studies. The GPSA serves to represent the interests and voices of pharmacy students while advocating for their welfare, rights, and academic excellence.
+            </p>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <div
+                  className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 mt-1"
+                  style={{ background: 'rgba(60,181,89,0.15)' }}
+                >
+                  <BookOpen className="h-4 w-4" style={{ color: '#3CB559' }} />
+                </div>
+                <div>
+                  <p className="font-body font-700 text-[#1B3D22] text-sm">Academic Excellence</p>
+                  <p className="text-xs text-muted">Supporting student success through resources and mentorship</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div
+                  className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 mt-1"
+                  style={{ background: 'rgba(60,181,89,0.15)' }}
+                >
+                  <Heart className="h-4 w-4" style={{ color: '#3CB559' }} />
+                </div>
+                <div>
+                  <p className="font-body font-700 text-[#1B3D22] text-sm">Student Welfare</p>
+                  <p className="text-xs text-muted">Ensuring holistic support for all members of our community</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function BuiltOnPrinciple() {
+  return (
+    <section className="section-padding">
+      <div className="section-container">
+        <div className="mb-10 text-center">
+          <h2
+            className="font-display font-bold"
+            style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', color: '#1B3D22' }}
+          >
+            Built on Principle
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {PRINCIPLES.map(({ icon: Icon, title, desc, iconColor, iconBg, cardBg, textColor }) => (
+            <div
+              key={title}
+              className="rounded-2xl p-8 relative overflow-hidden transition-all hover:shadow-lg group"
+              style={{ background: cardBg }}
+            >
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ background: 'radial-gradient(ellipse at 80% 0%, rgba(242,193,46,0.12) 0%, transparent 60%)' }}
+              />
+              <div className="relative z-10">
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
+                  style={{ background: iconBg, color: iconColor }}
+                >
+                  <Icon className="h-6 w-6" />
+                </div>
+                <h3
+                  className="font-body font-700 text-lg mb-3"
+                  style={{ color: textColor }}
+                >
+                  {title}
+                </h3>
+                <p
+                  className="text-sm leading-relaxed"
+                  style={{ color: textColor, opacity: 0.85 }}
+                >
+                  {desc}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 
 function StatsBanner() {
   return (
@@ -133,95 +289,17 @@ function StatsBanner() {
   )
 }
 
-function MissionVision() {
+function WhatWeDo() {
   return (
     <section className="section-padding">
       <div className="section-container">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-          {/* Mission */}
-          <div
-            className="rounded-3xl p-8 lg:p-10 relative overflow-hidden"
-            style={{ background: 'linear-gradient(145deg, #1B3D22 0%, #2d6840 60%, #3CB559 100%)' }}
+        <div className="mb-10 text-center">
+          <h2
+            className="font-display font-bold"
+            style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', color: '#1B3D22' }}
           >
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse at 80% 0%, rgba(242,193,46,0.18) 0%, transparent 60%)' }}
-            />
-            <div className="relative z-10">
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                style={{ background: 'rgba(255,255,255,0.10)', border: '1px solid rgba(255,255,255,0.15)' }}
-              >
-                <Target className="h-6 w-6 text-white" />
-              </div>
-              <p className="text-xs font-700 uppercase tracking-widest mb-3" style={{ color: '#7DD98A' }}>
-                Our Mission
-              </p>
-              <p
-                className="font-display font-bold text-white leading-snug mb-4"
-                style={{ fontSize: 'clamp(1.3rem, 2.5vw, 1.75rem)' }}
-              >
-                Empowering every pharmacy student to thrive
-              </p>
-              <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.65)' }}>
-                To promote the academic, social, and professional development of pharmacy students at the
-                University for Development Studies — while advocating for their welfare, rights, and
-                equal opportunities.
-              </p>
-            </div>
-          </div>
-
-          {/* Vision */}
-          <div
-            className="rounded-3xl p-8 lg:p-10 relative overflow-hidden"
-            style={{
-              background: 'linear-gradient(145deg, #f4fbf6 0%, #edf7f0 100%)',
-              border: '1px solid #d1ead8',
-            }}
-          >
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{ background: 'radial-gradient(ellipse at 90% 10%, rgba(242,193,46,0.10) 0%, transparent 55%)' }}
-            />
-            <div className="relative z-10">
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                style={{ background: 'rgba(60,181,89,0.08)', border: '1px solid rgba(60,181,89,0.15)' }}
-              >
-                <Eye className="h-6 w-6" style={{ color: '#3CB559' }} />
-              </div>
-              <p className="text-xs font-700 uppercase tracking-widest mb-3" style={{ color: '#3CB559' }}>
-                Our Vision
-              </p>
-              <p
-                className="font-display font-bold leading-snug mb-4"
-                style={{ fontSize: 'clamp(1.3rem, 2.5vw, 1.75rem)', color: '#1B3D22' }}
-              >
-                Ghana's most impactful pharmacy students' body
-              </p>
-              <p className="text-sm leading-relaxed text-muted">
-                To be the leading pharmacy students' association in Ghana — known for academic
-                excellence, unity, and community service that shapes the future of pharmaceutical
-                practice across the country.
-              </p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function WhatWeDo() {
-  return (
-    <section className="section-padding" style={{ background: '#f4f7f4' }}>
-      <div className="section-container">
-        <div className="mb-10">
-          <h2 className="section-title">What We Do</h2>
-          <p className="section-sub mt-2">Four pillars that define our work and impact</p>
-          <div className="divider" />
+            What We Do
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -253,10 +331,13 @@ function ExecutiveTeam() {
   return (
     <section className="section-padding">
       <div className="section-container">
-        <div className="mb-10">
-          <h2 className="section-title">The Executive Team</h2>
-          <p className="section-sub mt-2">2024 / 2025 leadership serving the GPSA-UDS community</p>
-          <div className="divider" />
+        <div className="mb-10 text-center">
+          <h2
+            className="font-display font-bold"
+            style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', color: '#1B3D22' }}
+          >
+            Meet Your SRC Executives
+          </h2>
         </div>
 
         {/* President featured */}
@@ -363,10 +444,13 @@ function History() {
   return (
     <section className="section-padding" style={{ background: '#f4f7f4' }}>
       <div className="section-container">
-        <div className="mb-10">
-          <h2 className="section-title">Our History</h2>
-          <p className="section-sub mt-2">Key milestones that shaped who we are today</p>
-          <div className="divider" />
+        <div className="mb-10 text-center">
+          <h2
+            className="font-display font-bold"
+            style={{ fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', color: '#1B3D22' }}
+          >
+            Our Journey
+          </h2>
         </div>
 
         <div className="max-w-2xl mx-auto">
@@ -470,12 +554,11 @@ function ContactSection() {
       <div className="section-container">
         <div
           className="rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-2"
-          style={{ border: '1px solid #d1ead8' }}
+          style={{ background: 'linear-gradient(145deg, #1B3D22 0%, #2d6840 100%)', border: '1px solid #d1ead8' }}
         >
           {/* Left: CTA */}
           <div
             className="p-10 lg:p-14 flex flex-col justify-center relative overflow-hidden"
-            style={{ background: 'linear-gradient(145deg, #1B3D22 0%, #2d6840 100%)' }}
           >
             <div
               className="absolute inset-0 pointer-events-none opacity-[0.035]"
@@ -561,11 +644,12 @@ export function AboutPage() {
         subtitle="Who we are, what we stand for, and the community we are building."
       />
 
+      <TeamIntroSection />
+      <BuiltOnPrinciple />
       <StatsBanner />
-      <MissionVision />
+      <History />
       <WhatWeDo />
       <ExecutiveTeam />
-      <History />
       <ContactSection />
     </>
   )

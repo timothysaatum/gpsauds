@@ -16,9 +16,10 @@ import { AcademicsPage } from '@/pages/Academics'
 import { EventsPage, EventDetailPage } from '@/pages/Events'
 import {
   WelfarePage, OpportunitiesPage, NewsPage, NewsDetailPage,
-  NotificationsPage,
-  AboutPage, GalleryPage
+  NotificationsPage
 } from '@/pages/other-pages'
+import { AboutPage } from '@/pages/AboutPage'
+import { GalleryPage } from '@/pages/GalleryPage'
 import {
   ProfilePage, CertificatesPage, CertificateVerifyPage, SettingsPage
 } from '@/pages/profile-pages'

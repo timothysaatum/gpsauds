@@ -19,7 +19,7 @@ export function RootLayout() {
 
 export function AuthLayout() {
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{background:"linear-gradient(135deg,#3CB559 0%,#52C96E 50%,#7DD98A 100%)"}}>
+    <div className="min-h-screen relative overflow-hidden" style={{background:"#29a329"}}>
       {/* Background pattern */}
       <div
         className="absolute inset-0 opacity-[0.04]"

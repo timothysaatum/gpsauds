@@ -7,11 +7,11 @@
    NO deep/dark greens used for backgrounds or primary UI elements.
    ─────────────────────────────────────────────────────────────────────────── */
 :root {
-  --green:           #3CB559;
-  --green-mid:       #52C96E;
-  --green-mint:      #7DD98A;
-  --green-hover:     #2A9144;
-  --green-text:      #1B3D22;
+  --green:           #29a329;
+  --green-mid:       #29a329;
+  --green-mint:      #39c639;
+  --green-hover:     #238a23;
+  --green-text:      #1f7a1f;
   --gold:            #F2C12E;
   --gold-light:      #F5D060;
   --cream:           #F7FAF7;
@@ -21,8 +21,8 @@
   --border:          #D9EBD9;
   --text:            #1B3D22;
   --text-muted:      #4A7A55;
-  --brand-gradient:  linear-gradient(135deg, #3CB559 0%, #52C96E 50%, #7DD98A 100%);
-  --brand-gradient-h: linear-gradient(90deg, #3CB559 0%, #7DD98A 100%);
+  --brand-gradient:  linear-gradient(135deg, #29a329 0%, #29a329 50%, #39c639 100%);
+  --brand-gradient-h: linear-gradient(90deg, #29a329 0%, #39c639 100%);
 }
 
 @layer base {
@@ -39,15 +39,15 @@
 
   *:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 2px #F7FAF7, 0 0 0 4px #3CB559;
+    box-shadow: 0 0 0 2px #F7FAF7, 0 0 0 4px #29a329;
   }
 
   ::-webkit-scrollbar       { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: #EDF4EE; }
-  ::-webkit-scrollbar-thumb { background: #7DD98A; border-radius: 9999px; }
-  ::-webkit-scrollbar-thumb:hover { background: #3CB559; }
+  ::-webkit-scrollbar-thumb { background: #39c639; border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #29a329; }
 
-  ::selection { background: #3CB559; color: white; }
+  ::selection { background: #29a329; color: white; }
 }
 
 @layer components {
@@ -243,11 +243,13 @@
   .page-header {
     background: var(--brand-gradient);
     @apply relative overflow-hidden;
+    z-index: 1;
   }
   .page-header::before {
     content: ''; position: absolute; inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     pointer-events: none;
+    z-index: 0;
   }
 
   /* ── Marquee ──────────────────────────────────────────────────────────── */

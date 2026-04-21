@@ -64,7 +64,7 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 transition-all duration-200',
+        'sticky top-0 z-50 transition-all duration-200 w-full',
         scrolled
           ? 'bg-white/95 backdrop-blur-md border-b border-cream-dark shadow-card'
           : 'bg-white border-b border-cream-dark'
@@ -131,7 +131,7 @@ export function Navbar() {
                     onClick={() => setProfileOpen((o) => !o)}
                     className="flex items-center gap-2 pl-1 pr-3 py-1.5 rounded-xl hover:bg-cream-dark transition-all"
                   >
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{background:"linear-gradient(135deg,#3CB559,#7DD98A)"}}>
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{background:"linear-gradient(135deg,#29a329,#39c639)"}}>
                       <span className="text-xs font-700 text-white">{initials(user.full_name)}</span>
                     </div>
                     <span className="hidden md:block text-sm font-500 text-green-800 max-w-[100px] truncate">
@@ -276,7 +276,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="text-white/90" style={{background: "linear-gradient(135deg, #3CB559 0%, #7DD98A 100%)"}}>
+    <footer className="text-white/90" style={{background: "#1f7a1f"}}>
       <div className="section-container py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand */}

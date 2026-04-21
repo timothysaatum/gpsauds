@@ -64,7 +64,7 @@ export function AnnouncementStrip({ items, speed = 28 }: AnnouncementStripProps)
       <div
         className="absolute left-0 top-0 bottom-0 z-10 flex items-center px-3.5 select-none flex-shrink-0"
         style={{
-          background: 'linear-gradient(90deg, #3CB559, #52C96E)',
+          background: 'linear-gradient(90deg, #29a329, #39c639)',
           // Fade out to the right so the transition into text looks clean
           boxShadow: '4px 0 12px 4px #1B3D22',
         }}
@@ -97,7 +97,7 @@ export function AnnouncementStrip({ items, speed = 28 }: AnnouncementStripProps)
                   width: '4px',
                   height: '4px',
                   borderRadius: '50%',
-                  background: '#3CB559',
+                  background: '#29a329',
                   margin: '0 18px',
                   flexShrink: 0,
                   verticalAlign: 'middle',
