@@ -412,8 +412,8 @@ function StudentVoice() {
             Your voice shapes the decisions we make. Submit a suggestion, report an issue,
             or request support — confidentially if you prefer.
           </p>
-          <Button variant="primary" size="lg" onClick={() => navigate('/welfare')}>
-            Reach Out to GPSA-UDS Welfare
+          <Button variant="primary" size="md" onClick={() => navigate('/welfare')}>
+            Get In Touch →
           </Button>
         </div>
       </div>

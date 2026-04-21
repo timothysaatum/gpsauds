@@ -17,14 +17,13 @@ import { cn, initials } from '@/utils'
 
 const NAV_LINKS = [
   { to: '/',             label: 'Home',          exact: true },
-  // Added About and Gallery pages
-  { to: '/about',       label: 'About',         icon: Info },
-  { to: '/gallery',     label: 'Gallery',       icon: Image },
   { to: '/academics',    label: 'Academics',     icon: BookOpen },
   { to: '/events',       label: 'Events',        icon: Calendar },
   { to: '/welfare',      label: 'Welfare',       icon: Heart },
   { to: '/opportunities',label: 'Opportunities', icon: Briefcase },
   { to: '/news',         label: 'News',          icon: Newspaper },
+  { to: '/about',        label: 'About',         icon: Info },
+  { to: '/gallery',      label: 'Gallery',       icon: Image },
 ]
 
 export function Navbar() {
