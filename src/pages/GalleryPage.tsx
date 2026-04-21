@@ -1,5 +1,4 @@
 /**
- * GalleryPage.tsx
  *
  * ── Backend integration checklist ──────────────────────────────────────────
  * 1. API FETCH:    Replace the GALLERY_ITEMS static array with a useQuery()
@@ -21,8 +20,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { X, ChevronLeft, ChevronRight, ZoomIn, Calendar, Tag } from 'lucide-react'
+import { X, ChevronLeft, ChevronRight, ZoomIn, Calendar} from 'lucide-react'
 import { Button } from '@/components/ui'
 import { PageHeader } from '@/components/shared'
 import { cn } from '@/utils'
