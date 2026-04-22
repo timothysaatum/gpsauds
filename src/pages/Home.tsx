@@ -68,7 +68,7 @@ function Hero() {
   const slide = SLIDES[current]
 
   return (
-    <section className="relative overflow-hidden h-[85vh] flex items-end z-40">
+    <section className="relative overflow-hidden flex items-end z-40" style={{ height: 'calc(100vh - 70px)' }}>
 
       {/* ── Photo layer ── */}
       <div
@@ -107,7 +107,7 @@ function Hero() {
       />
 
       {/* ── Content ── */}
-      <div className="relative w-full section-container pb-8 lg:pb-16 pt-20 lg:pt-24 h-full flex flex-col justify-end">
+      <div className="relative w-full section-container pb-8 lg:pb-16 pt-8 lg:pt-12 h-full flex flex-col justify-end">
         <div
           className="max-w-2xl relative z-50"
           style={{
