@@ -54,19 +54,19 @@ interface GalleryItem {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const GALLERY_ITEMS: GalleryItem[] = [
-  { id: 1,  title: 'Graduation Ceremony 2024',      category: 'events',   event_date: '2024-11-03', _gradient: 'linear-gradient(145deg,#1B3D22 0%,#2d6840 60%,#3CB559 100%)', _accent: '#7DD98A' },
+  { id: 1,  title: 'Graduation Ceremony 2024',      category: 'events',   event_date: '2024-11-03', _gradient: 'linear-gradient(90deg,#A8D5BA 0%,#00B140 100%)', _accent: '#A8D5BA' },
   { id: 2,  title: 'Health Week 2024',              category: 'health',   event_date: '2024-09-15', _gradient: 'linear-gradient(145deg,#7a4a00 0%,#C8991A 100%)',             _accent: '#F2C12E' },
   { id: 3,  title: 'Academic Symposium',            category: 'academic', event_date: '2024-07-20', _gradient: 'linear-gradient(145deg,#0c3347 0%,#185FA5 100%)',             _accent: '#85B7EB' },
-  { id: 4,  title: 'Community Outreach Drive',      category: 'outreach', event_date: '2024-06-08', _gradient: 'linear-gradient(145deg,#1B3D22 0%,#3a8050 100%)',             _accent: '#7DD98A' },
+  { id: 4,  title: 'Community Outreach Drive',      category: 'outreach', event_date: '2024-06-08', _gradient: 'linear-gradient(90deg,#A8D5BA 0%,#00B140 100%)',             _accent: '#A8D5BA' },
   { id: 5,  title: 'Public Speaking Contest',       category: 'events',   event_date: '2024-05-12', _gradient: 'linear-gradient(145deg,#4a1600 0%,#993c1d 100%)',             _accent: '#F09575' },
   { id: 6,  title: 'Field Trip — Herbarium',        category: 'academic', event_date: '2024-04-03', _gradient: 'linear-gradient(145deg,#0c3347 0%,#0F6E56 100%)',             _accent: '#5DCAA5' },
   { id: 7,  title: 'Inter-Level Sports Day',        category: 'social',   event_date: '2024-03-22', _gradient: 'linear-gradient(145deg,#3a1a6e 0%,#7c3aed 100%)',             _accent: '#c4b5fd' },
   { id: 8,  title: 'End-of-Year Dinner 2023',       category: 'social',   event_date: '2023-12-14', _gradient: 'linear-gradient(145deg,#1a0a2e 0%,#6b21a8 100%)',             _accent: '#d8b4fe' },
   { id: 9,  title: 'Lab Skills Workshop',           category: 'academic', event_date: '2023-11-18', _gradient: 'linear-gradient(145deg,#052e16 0%,#065f46 100%)',             _accent: '#6ee7b7' },
-  { id: 10, title: 'GPSA Induction Ceremony',       category: 'events',   event_date: '2023-09-02', _gradient: 'linear-gradient(145deg,#1B3D22 0%,#2d6840 100%)',             _accent: '#7DD98A' },
+  { id: 10, title: 'GPSA Induction Ceremony',       category: 'events',   event_date: '2023-09-02', _gradient: 'linear-gradient(90deg,#A8D5BA 0%,#00B140 100%)',             _accent: '#A8D5BA' },
   { id: 11, title: 'Drug Awareness Campaign',       category: 'health',   event_date: '2023-08-25', _gradient: 'linear-gradient(145deg,#7a4a00 0%,#92400e 100%)',             _accent: '#fcd34d' },
   { id: 12, title: 'Blood Donation Drive',          category: 'outreach', event_date: '2023-07-14', _gradient: 'linear-gradient(145deg,#7f1d1d 0%,#dc2626 100%)',             _accent: '#fca5a5' },
-  { id: 13, title: 'Welfare Sensitisation Week',    category: 'welfare',  event_date: '2023-06-05', _gradient: 'linear-gradient(145deg,#1B3D22 0%,#16a34a 100%)',             _accent: '#86efac' },
+  { id: 13, title: 'Welfare Sensitisation Week',    category: 'welfare',  event_date: '2023-06-05', _gradient: 'linear-gradient(90deg,#A8D5BA 0%,#00B140 100%)',             _accent: '#A8D5BA' },
   { id: 14, title: 'MYC 2024 — Opening Ceremony',  category: 'events',   event_date: '2024-02-10', _gradient: 'linear-gradient(145deg,#0c2340 0%,#1e40af 100%)',             _accent: '#93c5fd' },
   { id: 15, title: 'Pharmacology Quiz Bowl',        category: 'academic', event_date: '2024-01-28', _gradient: 'linear-gradient(145deg,#1e1b4b 0%,#4338ca 100%)',             _accent: '#a5b4fc' },
 ]
@@ -416,7 +416,7 @@ export function GalleryPage() {
                   'inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-600 font-body',
                   'border transition-all duration-150',
                   active
-                    ? 'bg-green-700 text-white border-green-700 shadow-card'
+                    ? 'bg-green-gradient text-white border-green-700 shadow-card'
                     : 'bg-white text-muted border-cream-dark hover:border-green-300 hover:text-green-700',
                 )}
               >

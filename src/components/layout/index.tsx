@@ -96,7 +96,7 @@ export function Navbar() {
                   cn(
                     'px-3.5 py-2 rounded-lg text-sm font-body font-500 transition-all duration-150',
                     isActive
-                      ? 'bg-green-50 text-green-700'
+                      ? 'bg-green-gradient text-white'
                       : 'text-green-700 hover:bg-cream-dark hover:text-green-700'
                   )
                 }
@@ -130,7 +130,7 @@ export function Navbar() {
                     onClick={() => setProfileOpen((o) => !o)}
                     className="flex items-center gap-2 pl-1 pr-3 py-1.5 rounded-xl hover:bg-cream-dark transition-all"
                   >
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{background:"linear-gradient(135deg,#29a329,#39c639)"}}>
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{background:"linear-gradient(90deg,#A8D5BA,#00B140)"}}>
                       <span className="text-xs font-700 text-white">{initials(user.full_name)}</span>
                     </div>
                     <span className="hidden md:block text-sm font-500 text-green-800 max-w-[100px] truncate">
@@ -220,7 +220,7 @@ export function Navbar() {
                   cn(
                     'flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-500 font-body transition-all',
                     isActive
-                      ? 'bg-green-50 text-green-700'
+                      ? 'bg-green-gradient text-white'
                       : 'text-green-700 hover:bg-cream-dark hover:text-green-700'
                   )
                 }
@@ -275,7 +275,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="text-white/90" style={{background: "#1f7a1f"}}>
+    <footer className="text-white/90" style={{background: "linear-gradient(90deg, #A8D5BA 0%, #00B140 100%)"}}>
       <div className="section-container py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand */}

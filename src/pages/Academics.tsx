@@ -214,7 +214,7 @@ export function AcademicsPage() {
                           className={cn(
                             'w-9 h-9 rounded-xl text-sm font-600 transition-all',
                             n === safePage
-                              ? 'bg-green-700 text-white'
+                              ? 'bg-green-gradient text-white'
                               : 'border border-cream-dark bg-white text-muted hover:border-green-300 hover:text-green-700'
                           )}
                         >

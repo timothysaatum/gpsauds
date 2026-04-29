@@ -55,7 +55,7 @@ export function ProfilePage() {
 
       {/* Avatar */}
       <div className="card p-6 mb-6 flex items-center gap-5">
-        <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{background:"linear-gradient(135deg,#3CB559,#7DD98A)"}}>
+        <div className="w-16 h-16 rounded-2xl flex items-center justify-center" style={{background:"linear-gradient(90deg,#A8D5BA,#00B140)"}}>
           <span className="text-xl font-bold text-white">{initials(user.full_name)}</span>
         </div>
         <div>
@@ -81,7 +81,7 @@ export function ProfilePage() {
           </div>
         )}
         {saved && (
-          <div className="mb-4 flex items-center gap-2 bg-green-50 border border-green-200 rounded-xl p-3.5 text-sm text-green-700">
+          <div className="mb-4 flex items-center gap-2 bg-green-gradient text-white border border-green-700 rounded-xl p-3.5 text-sm font-500">
             <CheckCircle className="h-4 w-4" />
             Profile updated successfully.
           </div>
@@ -209,11 +209,11 @@ export function CertificateVerifyPage() {
       </div>
 
       {queried && data && (
-        <div className={cn('card p-8 text-left', data.is_valid ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200')}>
+        <div className={cn('card p-8 text-left', data.is_valid ? 'bg-green-gradient text-white border-green-700' : 'bg-red-50 border-red-200')}>
           {data.is_valid ? (
             <>
-              <CheckCircle className="h-8 w-8 text-green-700 mb-4" />
-              <h3 className="font-body font-700 text-green-700 text-lg mb-3">✓ Certificate is Valid</h3>
+              <CheckCircle className="h-8 w-8 text-white mb-4" />
+              <h3 className="font-body font-700 text-white text-lg mb-3">✓ Certificate is Valid</h3>
               <div className="space-y-2 text-sm">
                 <p><span className="font-700">Recipient:</span> {data.recipient_name}</p>
                 <p><span className="font-700">Event:</span> {data.event_title}</p>
@@ -271,7 +271,7 @@ export function SettingsPage() {
       <div className="card p-8">
         <h2 className="font-body font-700 text-[#1B3D22] text-lg mb-5">Change Password</h2>
         {pwDone && (
-          <div className="mb-4 flex items-center gap-2 bg-green-50 border border-green-200 rounded-xl p-3.5 text-sm text-green-700">
+          <div className="mb-4 flex items-center gap-2 bg-green-gradient text-white border border-green-700 rounded-xl p-3.5 text-sm font-500">
             <CheckCircle className="h-4 w-4" /> Password changed. Please sign in again.
           </div>
         )}

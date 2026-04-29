@@ -203,7 +203,7 @@ export function RegisterPage() {
     return (
       <AuthCard title="Check your inbox" subtitle="One more step to activate your account">
         <div className="text-center py-4">
-          <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-5">
+          <div className="w-16 h-16 bg-green-gradient rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle className="h-8 w-8 text-green-700" />
           </div>
           <p className="text-sm text-muted leading-relaxed mb-6">

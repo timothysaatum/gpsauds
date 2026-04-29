@@ -213,7 +213,7 @@ function Hero() {
 function QuickActions() {
   const navigate = useNavigate()
   const actions = [
-    { icon: Users,     label: 'Join GPSA',      desc: 'Register as an official member',     to: '/register',  color: 'bg-green-50 text-green-700', border: 'hover:border-green-300' },
+    { icon: Users,     label: 'Join GPSA',      desc: 'Register as an official member',     to: '/register',  color: 'bg-green-gradient text-white', border: 'hover:border-green-300' },
     { icon: Heart,     label: 'Welfare',         desc: 'Report issues or request help',      to: '/welfare',   color: 'bg-gold-50 text-gold-700',   border: 'hover:border-gold-200' },
     { icon: BookOpen,  label: 'Academics',       desc: 'Slides, questions, lab reports',     to: '/academics', color: 'bg-cream-dark text-green-700', border: 'hover:border-green-300' },
     { icon: Newspaper, label: 'Latest News',     desc: 'Official updates & announcements',   to: '/news',      color: 'bg-gold-50 text-gold-700', border: 'hover:border-gold-200' },
@@ -266,7 +266,7 @@ function FeaturedEvent() {
     <div className="section-container mb-12">
       <div
         className="rounded-3xl p-8 lg:p-10 flex flex-col lg:flex-row gap-8 items-start lg:items-center overflow-hidden relative"
-        style={{ background: 'linear-gradient(135deg, #3CB559 0%, #52C96E 50%, #7DD98A 100%)' }}
+        style={{ background: 'linear-gradient(90deg, #A8D5BA 0%, #00B140 100%)' }}
       >
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse at 80% 50%, rgba(242,193,46,0.15) 0%, transparent 60%)' }}
@@ -342,7 +342,7 @@ function SplitCards() {
           {/* Opportunities */}
           <div
             className="rounded-3xl p-8 relative overflow-hidden cursor-pointer group"
-            style={{ background: 'linear-gradient(135deg, #29a329 0%, #29a329 50%, #39c639 100%)' }}
+            style={{ background: 'linear-gradient(90deg, #A8D5BA 0%, #00B140 100%)' }}
             onClick={() => navigate('/opportunities')}
           >
             <div className="absolute inset-0 pointer-events-none"

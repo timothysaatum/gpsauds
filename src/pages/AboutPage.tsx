@@ -66,7 +66,7 @@ const PRINCIPLES = [
     desc: 'Empowering every pharmacy student to thrive academically, socially, and professionally.',
     iconColor: '#fff',
     iconBg: 'rgba(255,255,255,0.15)',
-    cardBg: 'linear-gradient(145deg, #1B3D22 0%, #2d6840 60%, #3CB559 100%)',
+    cardBg: 'linear-gradient(90deg, #A8D5BA 0%, #00B140 100%)',
     textColor: '#fff',
   },
   {
@@ -75,7 +75,7 @@ const PRINCIPLES = [
     desc: 'Ghana\'s most impactful pharmacy students\' body, known for excellence and community service.',
     iconColor: '#fff',
     iconBg: 'rgba(255,255,255,0.15)',
-    cardBg: 'linear-gradient(145deg, #2d6840 0%, #1B3D22 100%)',
+    cardBg: 'linear-gradient(90deg, #A8D5BA 0%, #00B140 100%)',
     textColor: '#fff',
   },
   {
@@ -84,7 +84,7 @@ const PRINCIPLES = [
     desc: 'Integrity, accountability, student-centric, innovative, collaborative, and advocacy-driven.',
     iconColor: '#fff',
     iconBg: 'rgba(255,255,255,0.15)',
-    cardBg: 'linear-gradient(145deg, #1B3D22 0%, #2d6840 100%)',
+    cardBg: 'linear-gradient(90deg, #A8D5BA 0%, #00B140 100%)',
     textColor: '#fff',
   },
 ]
@@ -258,7 +258,7 @@ function StatsBanner() {
   return (
     <div
       className="relative overflow-hidden"
-      style={{ background: 'linear-gradient(135deg, #29d84c 0%, #2d6840 100%)' }}
+      style={{ background: 'linear-gradient(90deg, #A8D5BA 0%, #00B140 100%)' }}
     >
       {/* Pattern overlay */}
       <div
@@ -397,7 +397,7 @@ function ExecutiveCard({ exec, featured }: { exec: ExecData; featured?: boolean 
         {/* Silhouette placeholder — delete when real photo available */}
         <div
           className="w-full h-full flex flex-col items-end justify-end"
-          style={{ background: 'linear-gradient(160deg, #2d6840 0%, #1B3D22 100%)' }}
+          style={{ background: 'linear-gradient(90deg, #A8D5BA 0%, #00B140 100%)' }}
         >
           <svg
             viewBox="0 0 60 60"
@@ -462,7 +462,7 @@ function History() {
                   className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-700 flex-shrink-0 z-10"
                   style={{
                     background: i === 0
-                      ? 'linear-gradient(135deg,#3CB559,#7DD98A)'
+                      ? 'linear-gradient(90deg,#A8D5BA,#00B140)'
                       : 'rgba(60,181,89,0.08)',
                     color: i === 0 ? '#1B3D22' : '#3CB559',
                     border: i !== 0 ? '1px solid rgba(60,181,89,0.2)' : undefined,
@@ -566,7 +566,7 @@ function ContactSection() {
       <div className="section-container">
         <div
           className="rounded-3xl overflow-hidden grid grid-cols-1 lg:grid-cols-2"
-          style={{ background: 'linear-gradient(145deg, #1B3D22 0%, #2d6840 100%)', border: '1px solid #d1ead8' }}
+          style={{ background: 'linear-gradient(90deg, #A8D5BA 0%, #00B140 100%)', border: '1px solid #d1ead8' }}
         >
           {/* Left: CTA */}
           <div

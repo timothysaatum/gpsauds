@@ -53,9 +53,9 @@ const CARDS = [
     title:      'Request Support',
     desc:       'Personal struggles, financial difficulty, or academic pressure — we can help.',
     cta:        'Get Help',
-    accentBar:  'bg-green-500',
-    numStyle:   'bg-green-100 text-green-700',
-    activeRing: 'ring-green-300 border-green-500',
+    accentBar:  'bg-green-gradient',
+    numStyle:   'bg-green-gradient text-white',
+    activeRing: 'ring-green-300 border-green-700',
     btnVariant: 'primary'      as const,
   },
   {
@@ -133,7 +133,7 @@ export function WelfarePage() {
       <div
         className="relative overflow-hidden mt-16 lg:mt-[70px]"
         style={{
-          background: 'linear-gradient(135deg, #12401A 0%, #1A5C1A 40%, #2B8A2E 100%)',
+          background: 'linear-gradient(90deg, #A8D5BA 0%, #00B140 100%)',
           minHeight: '300px',
         }}
       >
@@ -161,7 +161,7 @@ export function WelfarePage() {
             <div className="max-w-xl">
               {/* Live / secure badge */}
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-1.5 mb-5 border border-white/10">
-                <span className="w-2 h-2 rounded-full bg-green-300 animate-pulse flex-shrink-0" />
+                <span className="w-2 h-2 rounded-full bg-green-gradient animate-pulse flex-shrink-0" />
                 <span className="text-white/75 text-xs font-600 tracking-wide">
                   Welfare Portal — Confidential &amp; Secure
                 </span>
@@ -202,8 +202,8 @@ export function WelfarePage() {
         <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-5 mb-12 border-y border-cream-dark">
           {TRUST_ITEMS.map(({ Icon, text }) => (
             <div key={text} className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center flex-shrink-0">
-                <Icon className="h-3.5 w-3.5 text-green-700" />
+              <div className="w-7 h-7 rounded-lg bg-green-gradient flex items-center justify-center flex-shrink-0">
+                <Icon className="h-3.5 w-3.5 text-white" />
               </div>
               <span className="text-xs font-700 text-[#1B3D22]">{text}</span>
             </div>
@@ -297,7 +297,7 @@ export function WelfarePage() {
               {/* Form header (sticky) */}
               <div
                 className="sticky top-0 flex items-center justify-between px-8 py-6 border-b border-cream-dark"
-                style={{ background: 'linear-gradient(90deg, #1A5C1A 0%, #2B8A2E 100%)' }}
+                style={{ background: 'linear-gradient(90deg, #A8D5BA 0%, #00B140 100%)' }}
               >
                 <div>
                   <p className="text-green-300 text-[10px] font-700 uppercase tracking-widest mb-1">
@@ -325,8 +325,8 @@ export function WelfarePage() {
                 {submitted ? (
                   /* ── Success state ── */
                   <div className="py-12 text-center">
-                    <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                      <CheckCircle className="h-8 w-8 text-green-700" />
+                    <div className="w-16 h-16 bg-green-gradient rounded-full mx-auto mb-4 flex items-center justify-center">
+                      <CheckCircle className="h-8 w-8 text-white" />
                     </div>
                     <h3 className="font-display text-xl font-bold text-green-700 mb-2">
                       Received — Thank You
@@ -432,7 +432,7 @@ export function WelfarePage() {
                             className={cn(
                               'w-5 h-5 rounded flex items-center justify-center border-2 transition-all flex-shrink-0',
                               isAnonymous
-                                ? 'bg-green-700 border-green-500'
+                                ? 'bg-green-gradient border-green-700'
                                 : 'border-cream-dark bg-white',
                             )}
                           >
@@ -466,7 +466,7 @@ export function WelfarePage() {
         {/* ── TRUST QUOTE ── */}
         <div
           className="relative overflow-hidden rounded-3xl mb-12 p-8 lg:p-10"
-          style={{ background: 'linear-gradient(135deg, #12401A 0%, #1B3D22 100%)' }}
+          style={{ background: 'linear-gradient(90deg, #A8D5BA 0%, #00B140 100%)' }}
         >
           {/* Decorative large quote mark */}
           <div

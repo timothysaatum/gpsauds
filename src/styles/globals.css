@@ -21,8 +21,9 @@
   --border:          #D9EBD9;
   --text:            #1B3D22;
   --text-muted:      #4A7A55;
-  --brand-gradient:  linear-gradient(135deg, #29a329 0%, #29a329 50%, #39c639 100%);
-  --brand-gradient-h: linear-gradient(90deg, #29a329 0%, #39c639 100%);
+  --green-gradient:  linear-gradient(90deg, #A8D5BA 0%, #00B140 100%);
+  --brand-gradient:  linear-gradient(90deg, #A8D5BA 0%, #00B140 100%);
+  --brand-gradient-h: linear-gradient(90deg, #A8D5BA 0%, #00B140 100%);
 }
 
 @layer base {
@@ -294,6 +295,7 @@
   .text-deep { color: var(--green-text); }
   .bg-cream-dark { background-color: var(--cream-dark); }
   .border-cream-dark { border-color: var(--cream-dark); }
+  .bg-green-gradient { background: var(--green-gradient); }
 }
 
 /* ── Keyframes ──────────────────────────────────────────────────────────── */

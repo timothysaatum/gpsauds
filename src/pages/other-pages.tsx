@@ -193,7 +193,7 @@ export function NewsPage() {
         {/* Featured pinned post (server-selected) */}
         {featured && safePage === 1 && !search && catFilter === 'all' && (
           <div
-            className="bg-green-700 rounded-3xl p-8 lg:p-10 mb-10 flex flex-col lg:flex-row gap-8 items-start cursor-pointer hover:shadow-card-lg transition-all group"
+            className="bg-green-gradient rounded-3xl p-8 lg:p-10 mb-10 flex flex-col lg:flex-row gap-8 items-start cursor-pointer hover:shadow-card-lg transition-all group"
             onClick={() => navigate(`/news/${featured.id}`)}
           >
             <div className="text-7xl flex-shrink-0 group-hover:scale-110 transition-transform">{featured.banner_emoji ?? '📢'}</div>
@@ -258,8 +258,8 @@ export function NewsPage() {
                   <div className={cn(
                     'lg:w-64 h-48 lg:h-auto flex items-center justify-center text-7xl flex-shrink-0',
                     heroPost.category === 'announcement' ? 'bg-gold-50' :
-                    heroPost.category === 'academic_update' ? 'bg-green-50' :
-                    heroPost.category === 'welfare_update' ? 'bg-green-50' : 'bg-cream-dark'
+                    heroPost.category === 'academic_update' ? 'bg-green-gradient' :
+                    heroPost.category === 'welfare_update' ? 'bg-green-gradient' : 'bg-cream-dark'
                   )}>
                     {heroPost.banner_emoji ?? '📰'}
                   </div>
@@ -293,7 +293,7 @@ export function NewsPage() {
                         <div className={cn(
                           'w-16 h-16 rounded-xl flex items-center justify-center text-3xl flex-shrink-0',
                           p.category === 'announcement' ? 'bg-gold-50' :
-                          p.category === 'academic_update' ? 'bg-green-50' : 'bg-cream-dark'
+                          p.category === 'academic_update' ? 'bg-green-gradient' : 'bg-cream-dark'
                         )}>
                           {p.banner_emoji ?? '📰'}
                         </div>
@@ -350,7 +350,7 @@ export function NewsPage() {
                         className={cn(
                           'w-9 h-9 rounded-xl text-sm font-600 transition-all',
                           n === safePage
-                            ? 'bg-green-700 text-white shadow-card'
+                            ? 'bg-green-gradient text-white shadow-card border-green-700'
                             : 'border border-cream-dark bg-white text-muted hover:border-green-300 hover:text-green-700'
                         )}
                       >
@@ -405,8 +405,8 @@ export function NewsDetailPage() {
 
   const NEWS_BG: Record<string, string> = {
     announcement:    'bg-gold-50',
-    academic_update: 'bg-green-50',
-    welfare_update:  'bg-green-50',
+    academic_update: 'bg-green-gradient',
+    welfare_update:  'bg-green-gradient',
     events_recap:    'bg-cream-dark',
     opportunities:   'bg-gold-50',
     general:         'bg-cream-dark',
@@ -464,7 +464,7 @@ export function NewsDetailPage() {
 
         {/* Summary callout */}
         {post.summary && (
-          <div className="bg-green-50 border-l-4 border-green-500 rounded-r-xl p-5 mb-8">
+          <div className="bg-green-gradient border-l-4 border-green-700 rounded-r-xl p-5 mb-8 text-white">
             <p className="text-[#1B3D22] text-base leading-relaxed font-500">{post.summary}</p>
           </div>
         )}
@@ -558,7 +558,7 @@ export function NotificationsPage() {
             className={cn(
               'flex items-center gap-2 px-3 py-1.5 rounded-xl text-sm font-500 border transition-all',
               unreadOnly
-                ? 'bg-green-50 border-green-200 text-green-700'
+                ? 'bg-green-gradient text-white border-green-700'
                 : 'bg-white border-cream-dark text-muted'
             )}
           >
@@ -585,10 +585,10 @@ export function NotificationsPage() {
               onClick={() => { if (!n.is_read) markRead.mutate(n.id); if (n.link) navigate(n.link) }}
               className={cn(
                 'card p-5 cursor-pointer hover:shadow-card-md transition-all flex gap-4',
-                !n.is_read && 'bg-green-50 border-green-200'
+                !n.is_read && 'bg-green-gradient border-green-700'
               )}
             >
-              <div className="w-2 h-2 rounded-full bg-green-700 flex-shrink-0 mt-2 opacity-0 transition-opacity"
+              <div className="w-2 h-2 rounded-full bg-green-gradient flex-shrink-0 mt-2 opacity-0 transition-opacity"
                 style={{ opacity: n.is_read ? 0 : 1 }} />
               <div className="flex-1">
                 <p className={cn('text-sm font-600 text-[#1B3D22]', !n.is_read && 'font-700')}>{n.title}</p>

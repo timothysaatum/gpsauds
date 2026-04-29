@@ -65,9 +65,9 @@ function DeadlineBadge({ deadline }: { deadline: string }) {
 // ── Event card ────────────────────────────────────────────────────────────────
 
 const EVENT_BG: Record<string, string> = {
-  academic:   'bg-green-50',
+  academic:   'bg-green-gradient',
   welfare:    'bg-gold-50',
-  outreach:   'bg-green-50',
+  outreach:   'bg-green-gradient',
   social:     'bg-cream-dark',
   conference: 'bg-gold-50',
 }
@@ -203,8 +203,8 @@ export function OpportunityCard({ opportunity, onApply }: OpportunityCardProps) 
 
 const NEWS_BG: Record<string, string> = {
   announcement:   'bg-gold-50',
-  academic_update:'bg-green-50',
-  welfare_update: 'bg-green-50',
+  academic_update:'bg-green-gradient',
+  welfare_update: 'bg-green-gradient',
   events_recap:   'bg-cream-dark',
   opportunities:  'bg-gold-50',
   general:        'bg-cream-dark',
@@ -268,7 +268,7 @@ export function FilterBar<T extends string>({ options, value, onChange, classNam
           className={cn(
             'px-4 py-2 rounded-xl text-sm font-600 font-body border transition-all duration-150',
             value === opt.value
-              ? 'bg-green-700 text-white border-green-700 shadow-card'
+              ? 'bg-green-gradient text-white border-green-700 shadow-card'
               : 'bg-white text-muted border-cream-dark hover:border-green-300 hover:text-green-700'
           )}
         >

@@ -81,7 +81,7 @@ const BADGE_VARIANT: Record<BadgeVariant, string> = {
 }
 
 const BADGE_DOT: Record<BadgeVariant, string> = {
-  green:  'bg-green-600',
+  green:  'bg-green-gradient',
   gold:   'bg-yellow-500',
   red:    'bg-red-600',
   orange: 'bg-orange-600',
